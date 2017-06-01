@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Nifty_Example' do
+  pod 'Nifty', :path => '../'
+
+  target 'Nifty_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
