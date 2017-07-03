@@ -1,0 +1,54 @@
+PODS:
+  - CwlUtils (1.1.0)
+  - Nifty (0.1.0):
+    - CwlUtils
+    - Texture
+  - PINCache (3.0.1-beta.5):
+    - PINCache/Arc-exception-safe (= 3.0.1-beta.5)
+    - PINCache/Core (= 3.0.1-beta.5)
+  - PINCache/Arc-exception-safe (3.0.1-beta.5):
+    - PINCache/Core
+  - PINCache/Core (3.0.1-beta.5):
+    - PINOperation (= 1.0.3)
+  - PINOperation (1.0.3)
+  - PINRemoteImage/Core (3.0.0-beta.11):
+    - PINOperation
+  - PINRemoteImage/iOS (3.0.0-beta.11):
+    - PINRemoteImage/Core
+  - PINRemoteImage/PINCache (3.0.0-beta.11):
+    - PINCache (= 3.0.1-beta.5)
+    - PINRemoteImage/Core
+  - Texture (2.3.4):
+    - Texture/PINRemoteImage (= 2.3.4)
+  - Texture/Core (2.3.4)
+  - Texture/PINRemoteImage (2.3.4):
+    - PINRemoteImage/iOS (= 3.0.0-beta.11)
+    - PINRemoteImage/PINCache
+    - Texture/Core
+
+DEPENDENCIES:
+  - CwlUtils (from `https://github.com/mattgallagher/CwlUtils.git`)
+  - Nifty (from `../`)
+
+EXTERNAL SOURCES:
+  CwlUtils:
+    :git: https://github.com/mattgallagher/CwlUtils.git
+  Nifty:
+    :path: "../"
+
+CHECKOUT OPTIONS:
+  CwlUtils:
+    :commit: c84c0b0aafe69a09e77bfece128674466344efa9
+    :git: https://github.com/mattgallagher/CwlUtils.git
+
+SPEC CHECKSUMS:
+  CwlUtils: cc05056bfc9b2090ca61b1cb2ed90ad6bbcb0a88
+  Nifty: ace3d15a58272aaf54e4b042843cc29bc0689a06
+  PINCache: 98e7b1ef782824ad231ade51987c218b758c30d8
+  PINOperation: ac23db44796d4a564ecf9b5ea7163510f579b71d
+  PINRemoteImage: d71988f11914a050d6d4cf51efc4ad1de8c0a9d8
+  Texture: 8cf0872fe33328c20d7e6c1fcbf1f23a82162f2f
+
+PODFILE CHECKSUM: 3b4c006afd61678956e71b8107517fa8fbd7a276
+
+COCOAPODS: 1.2.1

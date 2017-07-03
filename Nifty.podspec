@@ -32,11 +32,12 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'Nifty/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'Nifty' => ['Nifty/Assets/*.png']
-  # }
+  s.resource_bundles = {
+    'Nifty' => ['Nifty/Assets/*.*']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.frameworks = 'JavaScriptCore'
+  s.dependency 'Texture'
+  s.dependency 'CwlUtils'
 end

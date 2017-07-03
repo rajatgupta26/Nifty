@@ -1,0 +1,6 @@
+framework module Nifty {
+  umbrella header "Nifty-umbrella.h"
+
+  export *
+  module * { export * }
+}
