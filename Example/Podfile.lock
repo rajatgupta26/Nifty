@@ -38,7 +38,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CwlUtils:
-    :commit: c84c0b0aafe69a09e77bfece128674466344efa9
+    :commit: 78ef5a09949461d1ab89d7b1451f37d095b5fde1
     :git: https://github.com/mattgallagher/CwlUtils.git
 
 SPEC CHECKSUMS:

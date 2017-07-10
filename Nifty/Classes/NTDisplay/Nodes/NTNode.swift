@@ -1203,34 +1203,37 @@ extension NTNode: NTLayoutElement {
 extension NTNode: NTModule {
     
     public class func moduleName() -> String {
-        return "Node"
+        return NTNodeConsts.Node.name
     }
     
     public class func constantsToExport() -> [String : Any]? {
-        let constantMap = ["RJInterfaceState": ["none": ASInterfaceState.measureLayout.rawValue,
-                                                "preload": ASInterfaceState.preload.rawValue,
-                                                "display": ASInterfaceState.display.rawValue,
-                                                "visible": ASInterfaceState.visible.rawValue,
-                                                "inHierarchy": ASInterfaceState.inHierarchy.rawValue],
-                           "RJAutoResizing": ["flexibleLeft": UIViewAutoresizing.flexibleLeftMargin.rawValue,
-                                              "flexibleRight": UIViewAutoresizing.flexibleRightMargin.rawValue,
-                                              "flexiblewTop": UIViewAutoresizing.flexibleTopMargin.rawValue,
-                                              "flexibleBottom": UIViewAutoresizing.flexibleBottomMargin.rawValue,
-                                              "flexibleWidth": UIViewAutoresizing.flexibleWidth.rawValue,
-                                              "flexibleHeight": UIViewAutoresizing.flexibleHeight.rawValue],
-                           "RJContentMode":    ["scaleToFill": UIViewContentMode.scaleToFill.rawValue,
-                                                "scaleAspectFit": UIViewContentMode.scaleAspectFit.rawValue,
-                                                "scaleAspectFill": UIViewContentMode.scaleAspectFill.rawValue,
-                                                "redraw": UIViewContentMode.redraw.rawValue,
-                                                "center": UIViewContentMode.center.rawValue,
-                                                "top": UIViewContentMode.top.rawValue,
-                                                "bottom": UIViewContentMode.bottom.rawValue,
-                                                "left": UIViewContentMode.left.rawValue,
-                                                "right": UIViewContentMode.right.rawValue,
-                                                "topLeft": UIViewContentMode.topLeft.rawValue,
-                                                "topRight": UIViewContentMode.topRight.rawValue,
-                                                "bottomLeft": UIViewContentMode.bottomLeft.rawValue,
-                                                "bottomRight": UIViewContentMode.bottomRight.rawValue]]
+        
+        let constantMap = [NTNodeConsts.Node.interfaceState: [NTNodeConsts.Node.InterfaceState.none.rawValue: ASInterfaceState.measureLayout.rawValue,
+                                              NTNodeConsts.Node.InterfaceState.preload.rawValue: ASInterfaceState.preload.rawValue,
+                                              NTNodeConsts.Node.InterfaceState.display.rawValue: ASInterfaceState.display.rawValue,
+                                              NTNodeConsts.Node.InterfaceState.visible.rawValue: ASInterfaceState.visible.rawValue,
+                                              NTNodeConsts.Node.InterfaceState.inHierarchy.rawValue: ASInterfaceState.inHierarchy.rawValue],
+                           
+                           NTNodeConsts.Node.autoResizing: [NTNodeConsts.Node.AutoResizing.flexibleLeft.rawValue: UIViewAutoresizing.flexibleLeftMargin.rawValue,
+                                            NTNodeConsts.Node.AutoResizing.flexibleRight.rawValue: UIViewAutoresizing.flexibleRightMargin.rawValue,
+                                            NTNodeConsts.Node.AutoResizing.flexibleTop.rawValue: UIViewAutoresizing.flexibleTopMargin.rawValue,
+                                            NTNodeConsts.Node.AutoResizing.flexibleBottom.rawValue: UIViewAutoresizing.flexibleBottomMargin.rawValue,
+                                            NTNodeConsts.Node.AutoResizing.flexibleWidth.rawValue: UIViewAutoresizing.flexibleWidth.rawValue,
+                                            NTNodeConsts.Node.AutoResizing.flexibleHeight.rawValue: UIViewAutoresizing.flexibleHeight.rawValue],
+                           
+                           NTNodeConsts.Node.contentMode:    [NTNodeConsts.Node.ContentMode.scaleToFill.rawValue: UIViewContentMode.scaleToFill.rawValue,
+                                              NTNodeConsts.Node.ContentMode.scaleAspectFit.rawValue: UIViewContentMode.scaleAspectFit.rawValue,
+                                              NTNodeConsts.Node.ContentMode.scaleAspectFill.rawValue: UIViewContentMode.scaleAspectFill.rawValue,
+                                              NTNodeConsts.Node.ContentMode.redraw.rawValue: UIViewContentMode.redraw.rawValue,
+                                              NTNodeConsts.Node.ContentMode.center.rawValue: UIViewContentMode.center.rawValue,
+                                              NTNodeConsts.Node.ContentMode.top.rawValue: UIViewContentMode.top.rawValue,
+                                              NTNodeConsts.Node.ContentMode.bottom.rawValue: UIViewContentMode.bottom.rawValue,
+                                              NTNodeConsts.Node.ContentMode.left.rawValue: UIViewContentMode.left.rawValue,
+                                              NTNodeConsts.Node.ContentMode.right.rawValue: UIViewContentMode.right.rawValue,
+                                              NTNodeConsts.Node.ContentMode.topLeft.rawValue: UIViewContentMode.topLeft.rawValue,
+                                              NTNodeConsts.Node.ContentMode.topRight.rawValue: UIViewContentMode.topRight.rawValue,
+                                              NTNodeConsts.Node.ContentMode.bottomLeft.rawValue: UIViewContentMode.bottomLeft.rawValue,
+                                              NTNodeConsts.Node.ContentMode.bottomRight.rawValue: UIViewContentMode.bottomRight.rawValue]]
         
         return constantMap
     }

@@ -39,7 +39,18 @@ extension NTModule {
 
 internal class NTModuleRegistery {
     //NTLOOK: Automate module registration through a build script or any other better way
-    static private var _modules: [NTModule.Type] = [NTNode.self, NTSpec.self, NTInsetSpec.self]
+    static private var _modules: [NTModule.Type] = [NTNode.self,
+                                                    NTSpec.self,
+                                                    NTInsetSpec.self,
+                                                    NTAbsoluteSpec.self,
+                                                    NTBackgroundSpec.self,
+                                                    NTCenterSpec.self,
+                                                    NTOverlaySpec.self,
+                                                    NTWrapperSpec.self,
+                                                    NTRatioSpec.self,
+                                                    NTRelativeSpec.self,
+//                                                    NTYogaSpec.self,
+                                                    NTStackSpec.self]
     
     //NTLOOK: Figure out all the default environtment variables related to mobie that should be exported here
     //NTLOOK: figure out a better way to do this if possible
@@ -65,6 +76,28 @@ internal class NTModuleRegistery {
         for module in _modules {
             context.setObject(module, forKeyedSubscript: module.moduleName() as NSString)
             //NTLOOK: key for constants is ModuleName+Constants.<constant> right now
+            
+//            if let consts = module.constantsToExport() {
+//                
+//                let key = module.moduleName() + "Constants"
+//                
+//                func export(consts: [String: Any], baseKey: String) {
+//                    
+//                    context.setObject(key, forKeyedSubscript: baseKey as NSString)
+//                    
+//                    for (key, value) in consts {
+//                        
+//                        let subscriptString = (baseKey + "." + key)
+//                        context.setObject(value, forKeyedSubscript: subscriptString as NSString)
+//                        
+//                        if let value = value as? [String: Any] {
+//                            export(consts: value, baseKey: subscriptString)
+//                        }
+//                    }
+//                }
+//                
+//                export(consts: consts, baseKey: module.moduleName() + "Constants")
+//            }
             context.setObject(module.constantsToExport(), forKeyedSubscript: (module.moduleName() + "Constants") as NSString)
         }
     }

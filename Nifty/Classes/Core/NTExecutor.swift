@@ -81,7 +81,7 @@ public class NTExecutor: NTContextDelegate {
     //NTLOOK: mutex for concurrency. May be this could be part of commons and every class could use it. Keeping it per instance level right now.
     fileprivate let _mutex: PThreadMutex = PThreadMutex(type: .recursive)
 
-    
+    //NTLOOK: Should there be an option to ues a shared context?
     fileprivate lazy var _context: NTContext = {
         let context = NTContext(withDelegate: self)
         return context

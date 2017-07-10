@@ -6,7 +6,7 @@
 //
 //
 
-import UIKit
+import Foundation
 import JavaScriptCore
 import AsyncDisplayKit
 
@@ -64,7 +64,7 @@ import AsyncDisplayKit
 extension NTInsetSpec {
     
     public override static func moduleName() -> String {
-        return "InsetSpec"
+        return NTSpecConsts.Inset.name
     }
     public override static func constantsToExport() -> [String: Any]? {
         return nil
