@@ -11,10 +11,18 @@ import JavaScriptCore
 import AsyncDisplayKit
 
 /*
+ //MARK: Not implemented
  @property (nullable, nonatomic, readwrite, copy) asimagenode_modification_block_t imageModificationBlock;
  #if TARGET_OS_TV
  @property (nonatomic, assign) BOOL isDefaultFocusAppearance;
  #endif
+ @property (nullable, nonatomic, strong) id <ASAnimatedImageProtocol> animatedImage;
+ @property (nonatomic, assign) BOOL animatedImagePaused;
+ 
+ @property (nonatomic, strong) NSString *animatedImageRunLoopMode;
+ - (void)animatedImageSet:(id <ASAnimatedImageProtocol>)newAnimatedImage previousAnimatedImage:(id <ASAnimatedImageProtocol>)previousAnimatedImage;
+ asimagenode_modification_block_t ASImageNodeRoundBorderModificationBlock(CGFloat borderWidth, UIColor * _Nullable borderColor);
+ asimagenode_modification_block_t ASImageNodeTintColorModificationBlock(UIColor *color);
 */
 
 @objc public protocol NTImageNodeExports: JSExport, NTControlNodeExport {
