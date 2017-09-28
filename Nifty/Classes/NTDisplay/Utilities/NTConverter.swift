@@ -11,13 +11,13 @@ import AsyncDisplayKit
 
 
 protocol NTInsetsConverter {
-    static func mapToEdgeInsets(_ map: [String: Double]) -> UIEdgeInsets!
+    static func mapToEdgeInsets(_ map: [String: Double]) -> UIEdgeInsets?
     static func edgeInsetsToMap(_ insets: UIEdgeInsets) -> [String: Double]
 }
 
 protocol NTSizeRangeConverter {
     
-    static func mapToSizeRange(_ map: [String: [String: Double]]) -> ASSizeRange!
+    static func mapToSizeRange(_ map: [String: [String: Double]]) -> ASSizeRange?
     static func sizeRangeToMap(_ sizeRange: ASSizeRange) -> [String: [String: Double]]
 }
 
@@ -29,7 +29,7 @@ public struct NTConverter {
 
 extension NTConverter: NTInsetsConverter {
     
-    static func mapToEdgeInsets(_ map: [String: Double]) -> UIEdgeInsets! {
+    static func mapToEdgeInsets(_ map: [String: Double]) -> UIEdgeInsets? {
         
         if let top = map["top"], let left = map["left"], let bottom = map["bottom"], let right = map["right"] {
             return UIEdgeInsetsMake(CGFloat(top), CGFloat(left), CGFloat(bottom), CGFloat(right))
@@ -46,7 +46,7 @@ extension NTConverter: NTInsetsConverter {
 
 extension NTConverter: NTSizeRangeConverter {
     
-    static func mapToSizeRange(_ map: [String: [String: Double]]) -> ASSizeRange! {
+    static func mapToSizeRange(_ map: [String: [String: Double]]) -> ASSizeRange? {
         
         if let minWidth = map["min"]?["width"], let minHeight = map["min"]?["width"], let maxWidth = map["max"]?["width"], let maxHeight = map["max"]?["height"] {
             return ASSizeRange(min: CGSize(width: minWidth, height: minHeight), max: CGSize(width: maxWidth, height: maxHeight))

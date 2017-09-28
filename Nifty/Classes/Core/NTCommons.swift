@@ -307,6 +307,36 @@ internal struct NTNodeConsts {
             case bottomRight = "bottomRight"
         }
     }
+    
+    struct Control {
+        static let name = "ControlNode"
+        
+        static let event = "Event"
+        enum Event: String {
+            case touchDown
+            case touchDownRepeat
+            case touchDragInside
+            case touchDragOutside
+            case touchUpInside
+            case touchUpOutside
+            case touchCancel
+            case valueChanged
+            case primaryActionTriggered
+            case allEvents
+        }
+        
+        static let state = "State"
+        enum State: String {
+            case normal
+            case disabled
+            case highlighted
+            case selected
+        }
+    }
+    
+    struct Image {
+        static let name = "ImageNode"
+    }
 }
 
 

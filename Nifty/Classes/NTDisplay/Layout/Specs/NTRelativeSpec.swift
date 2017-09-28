@@ -12,6 +12,7 @@ import AsyncDisplayKit
 
 
 //NTLOOK: Find a better way to map these enums to AsyncDisplayKit's. Goes for all of the enums.
+//NTLOOK: typealias is the irght approach I think. Evaluate this approach further. Trying to use typealias NTControlNode onwards.
 @objc public enum NTRelativeSpecPosition: UInt {
     case none   = 0
     case start  = 1

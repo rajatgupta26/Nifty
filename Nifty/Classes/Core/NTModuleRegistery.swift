@@ -50,9 +50,16 @@ internal class NTModuleRegistery {
                                                     NTRatioSpec.self,
                                                     NTRelativeSpec.self,
 //                                                    NTYogaSpec.self,
-                                                    NTStackSpec.self]
+                                                    NTStackSpec.self,
+                                                    
+                                                    NTControlNode.self,
+                                                    NTImageNode.self,   
+                                                    
+                                                    UIColor.self,
+                                                    UIImage.self]
     
     //NTLOOK: Figure out all the default environtment variables related to mobie that should be exported here
+    //Bundle and document/library directory read write, filemanager etc
     //NTLOOK: figure out a better way to do this if possible
     static private var _defaultConstants: [String: Any] = ["ScreenBounds": ["size": ["width" : UIScreen.main.bounds.size.width,
                                                                                      "height": UIScreen.main.bounds.size.height],

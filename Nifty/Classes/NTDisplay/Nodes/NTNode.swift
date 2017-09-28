@@ -213,6 +213,8 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
 
 @objc public class NTNode: NSObject, NTNodeExport {
     
+    //NTLOOK: Using forced optional here. (i.e. ! instead of ? ... I think that's what this is called :P)
+    //Reason is that this to me looks likes the same kind of relation as owners have to IBOutlets. The node will be noded during init anyways.
     fileprivate var _asNode: ASDisplayNode!
     
     fileprivate lazy var _subNodes: [NTNode] = []
@@ -240,12 +242,12 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
 
     
     //MARK: Initializer
-    required public convenience init(withIdentifier id: String) {
+    public convenience init(withIdentifier id: String) {
         self.init()
         _identifier = id
     }
     
-    required public override init() {
+    public override init() {
         super.init()
         _asNode = self.loadNode()
         self._setup()
@@ -254,7 +256,7 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
     
 
     //Load appropriate async display node
-    open func loadNode() -> ASDisplayNode {
+    public func loadNode() -> ASDisplayNode {
         return ASDisplayNode()
     }
     
@@ -771,7 +773,9 @@ extension NTNode {
             return NTConverter.edgeInsetsToMap(self._asNode.hitTestSlop)
         }
         set {
-            self._asNode.hitTestSlop = NTConverter.mapToEdgeInsets(newValue)
+            if let insets = NTConverter.mapToEdgeInsets(newValue) {
+                self._asNode.hitTestSlop = insets
+            }
         }
     }
     
@@ -1071,11 +1075,11 @@ extension NTNode {
     open var backgroundColor: String? // default=nil
         {
         get {
-            return self._asNode.backgroundColor?.toHexString
+            return self._asNode.backgroundColor?.hexStringFromColor()
         }
         set {
             if let hex = newValue {
-                self._asNode.backgroundColor = UIColor(hex: hex)
+                self._asNode.backgroundColor = UIColor(hexString: hex)
             } else {
                 self._asNode.backgroundColor = nil
             }
@@ -1085,11 +1089,11 @@ extension NTNode {
     open var tintColor: String! // default=Blue
         {
         get {
-            return self._asNode.tintColor?.toHexString
+            return self._asNode.tintColor?.hexStringFromColor()
         }
         set {
             if let hex = newValue {
-                self._asNode.tintColor = UIColor(hex: hex)
+                self._asNode.tintColor = UIColor(hexString: hex)
             } else {
                 self._asNode.tintColor = nil
             }

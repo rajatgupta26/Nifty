@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "NTColor+Utilities.h"
 
 FOUNDATION_EXPORT double NiftyVersionNumber;
 FOUNDATION_EXPORT const unsigned char NiftyVersionString[];
