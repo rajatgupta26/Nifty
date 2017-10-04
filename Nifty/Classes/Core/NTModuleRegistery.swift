@@ -55,6 +55,7 @@ internal class NTModuleRegistery {
                                                     NTControlNode.self,
                                                     NTImageNode.self,
                                                     NTTextNode.self,
+                                                    NTButtonNode.self,
                                                     
                                                     UIColor.self,
                                                     UIImage.self]

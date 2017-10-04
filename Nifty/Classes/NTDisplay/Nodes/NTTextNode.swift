@@ -229,6 +229,11 @@ import AsyncDisplayKit
 
 public typealias NTLineBreakMode = Int
 public let kNTLineBreakModeByTruncatingTail = NSLineBreakMode.byTruncatingTail.rawValue
+public let kNTLineBreakModeByWordWrapping = NSLineBreakMode.byWordWrapping.rawValue
+public let kNTLineBreakModeByCharWrapping = NSLineBreakMode.byCharWrapping.rawValue
+public let kNTLineBreakModeByClipping = NSLineBreakMode.byClipping.rawValue
+public let kNTLineBreakModeByTruncatingHead = NSLineBreakMode.byTruncatingHead.rawValue
+public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMiddle.rawValue
 
 
 @objc public protocol NTTextNodeExports: JSExport, NTControlNodeExport {
@@ -290,10 +295,10 @@ public let kNTLineBreakModeByTruncatingTail = NSLineBreakMode.byTruncatingTail.r
     
     public var truncationMode: NTLineBreakMode {
         get {
-            return self._textNode?.truncationMode.rawValue ?? NSLineBreakMode.byTruncatingTail.rawValue
+            return self._textNode?.truncationMode.rawValue ?? kNTLineBreakModeByWordWrapping
         }
         set {
-            self._textNode?.truncationMode = NSLineBreakMode(rawValue: newValue) ?? .byTruncatingTail
+            self._textNode?.truncationMode = NSLineBreakMode(rawValue: newValue) ?? .byWordWrapping
         }
     }
     

@@ -341,6 +341,10 @@ internal struct NTNodeConsts {
     struct Text {
         static let name = "TextNode"
     }
+    
+    struct Button {
+        static let name = "ButtonNode"
+    }
 }
 
 
