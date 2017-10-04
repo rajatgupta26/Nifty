@@ -53,7 +53,8 @@ internal class NTModuleRegistery {
                                                     NTStackSpec.self,
                                                     
                                                     NTControlNode.self,
-                                                    NTImageNode.self,   
+                                                    NTImageNode.self,
+                                                    NTTextNode.self,
                                                     
                                                     UIColor.self,
                                                     UIImage.self]

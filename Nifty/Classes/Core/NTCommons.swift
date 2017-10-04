@@ -337,6 +337,10 @@ internal struct NTNodeConsts {
     struct Image {
         static let name = "ImageNode"
     }
+    
+    struct Text {
+        static let name = "TextNode"
+    }
 }
 
 

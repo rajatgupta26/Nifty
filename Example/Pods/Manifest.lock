@@ -34,7 +34,7 @@ EXTERNAL SOURCES:
   CwlUtils:
     :git: https://github.com/mattgallagher/CwlUtils.git
   Nifty:
-    :path: "../"
+    :path: ../
 
 CHECKOUT OPTIONS:
   CwlUtils:
@@ -49,6 +49,6 @@ SPEC CHECKSUMS:
   PINRemoteImage: 0cefe720c2612960bd360710efbd6c73a1991d5f
   Texture: 12eb0807c117aaa21ef86f7f52dc61cc13e59739
 
-PODFILE CHECKSUM: 3b4c006afd61678956e71b8107517fa8fbd7a276
+PODFILE CHECKSUM: 38dc938dfae680ddc6805cf389efbc618636b861
 
 COCOAPODS: 1.2.1
