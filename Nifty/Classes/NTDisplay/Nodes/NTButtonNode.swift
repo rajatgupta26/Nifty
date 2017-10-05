@@ -9,60 +9,14 @@ import Foundation
 import JavaScriptCore
 import AsyncDisplayKit
 /*
- 
- /** Horizontally align content (text or image).
- Defaults to ASHorizontalAlignmentMiddle.
- */
  @property (nonatomic, assign) ASHorizontalAlignment contentHorizontalAlignment;
- 
- /** Vertically align content (text or image).
- Defaults to ASVerticalAlignmentCenter.
- */
  @property (nonatomic, assign) ASVerticalAlignment contentVerticalAlignment;
- 
- /**
- * @discussion The insets used around the title and image node
- */
  @property (nonatomic, assign) UIEdgeInsets contentEdgeInsets;
- 
- /**
- * @discusstion Whether the image should be aligned at the beginning or at the end of node. Default is `ASButtonNodeImageAlignmentBeginning`.
- */
  @property (nonatomic, assign) ASButtonNodeImageAlignment imageAlignment;
- 
- /**
- *  Returns the styled title associated with the specified state.
- *
- *  @param state The control state that uses the styled title.
- *
- *  @return The title for the specified state.
- */
  - (nullable NSAttributedString *)attributedTitleForState:(UIControlState)state AS_WARN_UNUSED_RESULT;
- 
- /**
- *  Sets the styled title to use for the specified state. This will reset styled title previously set with -setTitle:withFont:withColor:forState.
- *
- *  @param title The styled text string to use for the title.
- *  @param state The control state that uses the specified title.
- */
  - (void)setAttributedTitle:(nullable NSAttributedString *)title forState:(UIControlState)state;
- /**
- *  Returns the image used for a button state.
- *
- *  @param state The control state that uses the image.
- *
- *  @return The image used for the specified state.
- */
  - (nullable UIImage *)imageForState:(UIControlState)state AS_WARN_UNUSED_RESULT;
-
- /**
- *  Returns the background image used for a button state.
- *
- *  @param state The control state that uses the image.
- *
- *  @return The background image used for the specified state.
- */
- - (nullable UIImage *)backgroundImageForState:(UIControlState)state AS_WARN_UNUSED_RESULT;
+- (nullable UIImage *)backgroundImageForState:(UIControlState)state AS_WARN_UNUSED_RESULT;
 */
 
 @objc public protocol NTButtonNodeExports: JSExport, NTControlNodeExport {
