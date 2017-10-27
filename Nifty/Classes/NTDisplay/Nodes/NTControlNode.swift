@@ -12,10 +12,29 @@ import AsyncDisplayKit
 
 
 
-public typealias NTControlNodeEvent = ASControlNodeEvent
-public typealias NTControlState = UIControlState
+public typealias NTControlEvent = ASControlNodeEvent.RawValue
+public let NTControlEventTouchDown = ASControlNodeEvent.touchDown.rawValue
+public let NTControlEventTouchDownRepeat = ASControlNodeEvent.touchDownRepeat.rawValue
+public let NTControlEventTouchDragInside = ASControlNodeEvent.touchDragInside.rawValue
+public let NTControlEventTouchDragOutside = ASControlNodeEvent.touchDragOutside.rawValue
+public let NTControlEventTouchUpInside = ASControlNodeEvent.touchUpInside.rawValue
+public let NTControlEventTouchUpOutside = ASControlNodeEvent.touchUpOutside.rawValue
+public let NTControlEventTouchCancel = ASControlNodeEvent.touchCancel.rawValue
+public let NTControlEventValueChanged = ASControlNodeEvent.valueChanged.rawValue
+public let NTControlEventPrimaryActionTriggered = ASControlNodeEvent.primaryActionTriggered.rawValue
+public let NTControlEventAllEvents = ASControlNodeEvent.allEvents.rawValue
 
-public typealias NTControlNodeCallback = (NTControlNode) -> ()
+public typealias NTControlState = UIControlState.RawValue
+public let NTControlStateNormal = UIControlState.normal.rawValue
+public let NTControlStateHighlighted = UIControlState.highlighted.rawValue
+public let NTControlStateDisabled = UIControlState.disabled.rawValue
+public let NTControlStateSelected = UIControlState.selected.rawValue
+public let NTControlStateFocused = UIControlState.focused.rawValue
+public let NTControlStateApplication = UIControlState.application.rawValue
+public let NTControlStateReserved = UIControlState.reserved.rawValue
+
+
+public typealias NTControlNodeCallback = @convention(block) (NTControlNode) -> ()
 
 
 
@@ -282,21 +301,21 @@ extension NTControlNode {
     }
     
     public override class func constantsToExport() -> [String : Any]? {
-        let constants: [String: Any] = [NTNodeConsts.Control.event: [NTNodeConsts.Control.Event.touchDown.rawValue: ASControlNodeEvent.touchDown.rawValue,
-                                                                     NTNodeConsts.Control.Event.touchDownRepeat.rawValue: ASControlNodeEvent.touchDownRepeat.rawValue,
-                                                                     NTNodeConsts.Control.Event.touchDragInside.rawValue: ASControlNodeEvent.touchDragInside.rawValue,
-                                                                     NTNodeConsts.Control.Event.touchDragOutside.rawValue: ASControlNodeEvent.touchDragOutside.rawValue,
-                                                                     NTNodeConsts.Control.Event.touchUpInside.rawValue: ASControlNodeEvent.touchUpInside.rawValue,
-                                                                     NTNodeConsts.Control.Event.touchUpOutside.rawValue: ASControlNodeEvent.touchUpOutside.rawValue,
-                                                                     NTNodeConsts.Control.Event.touchCancel.rawValue: ASControlNodeEvent.touchCancel.rawValue,
-                                                                     NTNodeConsts.Control.Event.valueChanged.rawValue: ASControlNodeEvent.valueChanged.rawValue,
-                                                                     NTNodeConsts.Control.Event.primaryActionTriggered.rawValue: ASControlNodeEvent.primaryActionTriggered.rawValue,
-                                                                     NTNodeConsts.Control.Event.allEvents.rawValue: ASControlNodeEvent.allEvents.rawValue],
+        let constants: [String: Any] = [NTNodeConsts.Control.event: [NTNodeConsts.Control.Event.touchDown.rawValue: NTControlEventTouchDown,
+                                                                     NTNodeConsts.Control.Event.touchDownRepeat.rawValue: NTControlEventTouchDownRepeat,
+                                                                     NTNodeConsts.Control.Event.touchDragInside.rawValue: NTControlEventTouchDragInside,
+                                                                     NTNodeConsts.Control.Event.touchDragOutside.rawValue: NTControlEventTouchDragOutside,
+                                                                     NTNodeConsts.Control.Event.touchUpInside.rawValue: NTControlEventTouchUpInside,
+                                                                     NTNodeConsts.Control.Event.touchUpOutside.rawValue: NTControlEventTouchUpOutside,
+                                                                     NTNodeConsts.Control.Event.touchCancel.rawValue: NTControlEventTouchCancel,
+                                                                     NTNodeConsts.Control.Event.valueChanged.rawValue: NTControlEventValueChanged,
+                                                                     NTNodeConsts.Control.Event.primaryActionTriggered.rawValue: NTControlEventPrimaryActionTriggered,
+                                                                     NTNodeConsts.Control.Event.allEvents.rawValue: NTControlEventAllEvents],
                                         
-                                        NTNodeConsts.Control.state: [NTNodeConsts.Control.State.normal.rawValue: UIControlState.normal.rawValue,
-                                                                     NTNodeConsts.Control.State.disabled.rawValue: UIControlState.disabled.rawValue,
-                                                                     NTNodeConsts.Control.State.highlighted.rawValue: UIControlState.highlighted.rawValue,
-                                                                     NTNodeConsts.Control.State.selected.rawValue: UIControlState.selected.rawValue]]
+                                        NTNodeConsts.Control.state: [NTNodeConsts.Control.State.normal.rawValue: NTControlStateNormal,
+                                                                     NTNodeConsts.Control.State.disabled.rawValue: NTControlStateDisabled,
+                                                                     NTNodeConsts.Control.State.highlighted.rawValue: NTControlStateHighlighted,
+                                                                     NTNodeConsts.Control.State.selected.rawValue: NTControlStateSelected]]
         
         return constants
     }

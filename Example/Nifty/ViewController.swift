@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         
         let node = NTDisplayNode(scriptName: "Alpha")
 //        node.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        node.backgroundColor = UIColor.red
         
         self.view.addSubnode(node)
     }

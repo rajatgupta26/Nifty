@@ -55,7 +55,8 @@ import AsyncDisplayKit
     }
     
     public override func loadNode() -> ASDisplayNode {
-        return ASImageNode()
+        let node = ASImageNode()
+        return node
     }
     
     public func setNeedsDisplayWithCompletion(_ completion: @escaping (Bool) -> Void) {
@@ -82,6 +83,9 @@ import AsyncDisplayKit
         }
         set {
             self._imageNode?.image = newValue
+            if let image = newValue {
+                self._imageNode?.style.preferredSize = image.size
+            }
         }
     }
 }

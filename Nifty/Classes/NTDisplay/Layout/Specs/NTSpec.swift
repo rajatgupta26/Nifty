@@ -106,17 +106,21 @@ import AsyncDisplayKit
                 break
             
             case .absolute:
-                if let ntAbsSpec = ntSpec as? NTAbsoluteSpec, let children = ntSpec.children {
+                if let ntAbsSpec = ntSpec as? NTAbsoluteSpec {
                     
-                    var asChildren: [ASLayoutElement] = []
-                    for child in children {
-                        if let asChild = asLayoutElement(from: child) {
-                            asChildren.append(asChild)
+                    if let children = ntSpec.children {
+                        var asChildren: [ASLayoutElement] = []
+                        for child in children {
+                            if let asChild = asLayoutElement(from: child) {
+                                asChildren.append(asChild)
+                            }
                         }
-                    }
-                    
-                    if asChildren.count > 0 {
-                        return ASAbsoluteLayoutSpec(sizing: ASAbsoluteLayoutSpecSizing(rawValue: ntAbsSpec.sizing.rawValue) ?? .default, children: asChildren)
+                        
+                        if asChildren.count > 0 {
+                            return ASAbsoluteLayoutSpec(sizing: ASAbsoluteLayoutSpecSizing(rawValue: ntAbsSpec.sizing.rawValue) ?? .default, children: asChildren)
+                        }
+                    } else {
+                        return ASAbsoluteLayoutSpec()
                     }
                 }
                 
@@ -236,6 +240,169 @@ import AsyncDisplayKit
         return nil
     }
 
+
+    //MARK: Style attributes
+    public var width: CGFloat {
+        get {
+            return self.asLayoutElement?.style.width.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.width = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeWidth: CGFloat {
+        get {
+            return self.asLayoutElement?.style.width.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.width = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+    
+    public var height: CGFloat {
+        get {
+            return self.asLayoutElement?.style.height.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.height = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeHeight: CGFloat {
+        get {
+            return self.asLayoutElement?.style.height.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.height = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+    
+    public var minHeight: CGFloat {
+        get {
+            return self.asLayoutElement?.style.minHeight.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.minHeight = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeMinHeight: CGFloat {
+        get {
+            return self.asLayoutElement?.style.minHeight.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.minHeight = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+    
+    public var maxHeight: CGFloat {
+        get {
+            return self.asLayoutElement?.style.maxHeight.value ?? UIScreen.main.bounds.height
+        }
+        set {
+            self.asLayoutElement?.style.maxHeight = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeMaxHeight: CGFloat {
+        get {
+            return self.asLayoutElement?.style.maxHeight.value ?? 1
+        }
+        set {
+            self.asLayoutElement?.style.maxHeight = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+    
+    public var minWidth: CGFloat {
+        get {
+            return self.asLayoutElement?.style.minWidth.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.minWidth = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeMinWidth: CGFloat {
+        get {
+            return self.asLayoutElement?.style.minWidth.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.minWidth = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+    
+    public var maxWidth: CGFloat {
+        get {
+            return self.asLayoutElement?.style.maxWidth.value ?? UIScreen.main.bounds.width
+        }
+        set {
+            self.asLayoutElement?.style.maxWidth = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeMaxWidth: CGFloat {
+        get {
+            return self.asLayoutElement?.style.maxWidth.value ?? 1
+        }
+        set {
+            self.asLayoutElement?.style.maxWidth = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+    
+    public var preferredSize: CGSize {
+        get {
+            return self.asLayoutElement?.style.preferredSize ?? CGSize.zero
+        }
+        set {
+            self.asLayoutElement?.style.preferredSize = newValue
+        }
+    }
+    
+    public var minSize: CGSize {
+        get {
+            return self.asLayoutElement?.style.minSize ?? CGSize.zero
+        }
+        set {
+            self.asLayoutElement?.style.minSize = newValue
+        }
+    }
+    
+    public var maxSize: CGSize {
+        get {
+            return self.asLayoutElement?.style.maxSize ?? UIScreen.main.bounds.size
+        }
+        set {
+            self.asLayoutElement?.style.maxSize = newValue
+        }
+    }
+    
+    public var relativePreferredSize: CGSize {
+        get {
+            return (self.asLayoutElement != nil) ? CGSize(width: self.asLayoutElement!.style.preferredLayoutSize.width.value, height: self.asLayoutElement!.style.preferredLayoutSize.height.value) : CGSize.zero
+        }
+        set {
+            self.asLayoutElement?.style.preferredLayoutSize = ASLayoutSize(width: ASDimension(unit: .fraction, value: newValue.width), height: ASDimension(unit: .fraction, value: newValue.height))
+        }
+    }
+    
+    public var relativeMinSize: CGSize {
+        get {
+            return (self.asLayoutElement != nil) ? CGSize(width: self.asLayoutElement!.style.minLayoutSize.width.value, height: self.asLayoutElement!.style.minLayoutSize.height.value) : CGSize.zero
+        }
+        set {
+            self.asLayoutElement?.style.minLayoutSize = ASLayoutSize(width: ASDimension(unit: .fraction, value: newValue.width), height: ASDimension(unit: .fraction, value: newValue.height))
+        }
+    }
+    
+    public var relativeMaxSize: CGSize {
+        get {
+            return (self.asLayoutElement != nil) ? CGSize(width: self.asLayoutElement!.style.maxLayoutSize.width.value, height: self.asLayoutElement!.style.maxLayoutSize.height.value) : CGSize(width: 1, height: 1)
+        }
+        set {
+            self.asLayoutElement?.style.maxLayoutSize = ASLayoutSize(width: ASDimension(unit: .fraction, value: newValue.width), height: ASDimension(unit: .fraction, value: newValue.height))
+        }
+    }
 }
 
 

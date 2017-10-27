@@ -202,10 +202,15 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
     var contentsScale: Double { get set }// default=1.0f. See @contentsScaleForDisplay for more info
     
     var autoresizingMask: UInt { get set }// default==UIViewAutoresizingNone  (undefined for layer-backed nodes)
-    var backgroundColor: String? { get set }// default=nil
-    var tintColor: String! { get set }// default=Blue
+    var backgroundColor: UIColor? { get set }// default=nil
+    var tintColor: UIColor? { get set }// default=Blue
     
     var contentMode: Int { get set }// default=UIViewContentModeScaleToFill
+    
+    
+    
+    //Layout
+    
 }
 
 
@@ -247,7 +252,7 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
         _identifier = id
     }
     
-    public override init() {
+    required public override init() {
         super.init()
         _asNode = self.loadNode()
         self._setup()
@@ -257,7 +262,8 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
 
     //Load appropriate async display node
     public func loadNode() -> ASDisplayNode {
-        return ASDisplayNode()
+        let node = ASDisplayNode()
+        return node
     }
     
     public func _setup() {
@@ -281,7 +287,7 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
     }
     
     public static func create() -> NTNode {
-        let node = NTNode()
+        let node = self.init()
         return node
     }
     
@@ -1066,39 +1072,30 @@ extension NTNode {
     
     
     
-    /**
-     * @abstract The node view's background color.
-     *
-     * @discussion In contrast to UIView, setting a transparent color will not set opaque = NO.
-     * This only affects nodes that implement +drawRect like ASTextNode.
-     */
-    open var backgroundColor: String? // default=nil
-        {
+//    /**
+//     * @abstract The node view's background color.
+//     *
+//     * @discussion In contrast to UIView, setting a transparent color will not set opaque = NO.
+//     * This only affects nodes that implement +drawRect like ASTextNode.
+//     */
+    open var backgroundColor: UIColor? {
         get {
-            return self._asNode.backgroundColor?.hexStringFromColor()
+            return self._asNode.backgroundColor
         }
         set {
-            if let hex = newValue {
-                self._asNode.backgroundColor = UIColor(hexString: hex)
-            } else {
-                self._asNode.backgroundColor = nil
-            }
+            self._asNode.backgroundColor = newValue
         }
     }
-    
-    open var tintColor: String! // default=Blue
-        {
+
+    open var tintColor: UIColor? {
         get {
-            return self._asNode.tintColor?.hexStringFromColor()
+            return self._asNode.tintColor
         }
         set {
-            if let hex = newValue {
-                self._asNode.tintColor = UIColor(hexString: hex)
-            } else {
-                self._asNode.tintColor = nil
-            }
+            self._asNode.tintColor = newValue
         }
     }
+
     
     open var contentMode: Int // default=UIViewContentModeScaleToFill
         {
@@ -1164,6 +1161,169 @@ extension NTNode: NTLayoutElement {
             return _asNode
         }
     }
+    
+    public var width: CGFloat {
+        get {
+            return self.asLayoutElement?.style.width.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.width = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeWidth: CGFloat {
+        get {
+            return self.asLayoutElement?.style.width.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.width = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+    
+    public var height: CGFloat {
+        get {
+            return self.asLayoutElement?.style.height.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.height = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeHeight: CGFloat {
+        get {
+            return self.asLayoutElement?.style.height.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.height = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+    
+    public var minHeight: CGFloat {
+        get {
+            return self.asLayoutElement?.style.minHeight.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.minHeight = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeMinHeight: CGFloat {
+        get {
+            return self.asLayoutElement?.style.minHeight.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.minHeight = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+    
+    public var maxHeight: CGFloat {
+        get {
+            return self.asLayoutElement?.style.maxHeight.value ?? UIScreen.main.bounds.height
+        }
+        set {
+            self.asLayoutElement?.style.maxHeight = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeMaxHeight: CGFloat {
+        get {
+            return self.asLayoutElement?.style.maxHeight.value ?? 1
+        }
+        set {
+            self.asLayoutElement?.style.maxHeight = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+    
+    public var minWidth: CGFloat {
+        get {
+            return self.asLayoutElement?.style.minWidth.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.minWidth = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeMinWidth: CGFloat {
+        get {
+            return self.asLayoutElement?.style.minWidth.value ?? 0
+        }
+        set {
+            self.asLayoutElement?.style.minWidth = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+    
+    public var maxWidth: CGFloat {
+        get {
+            return self.asLayoutElement?.style.maxWidth.value ?? UIScreen.main.bounds.width
+        }
+        set {
+            self.asLayoutElement?.style.maxWidth = ASDimension(unit: .points, value: newValue)
+        }
+    }
+    
+    public var relativeMaxWidth: CGFloat {
+        get {
+            return self.asLayoutElement?.style.maxWidth.value ?? 1
+        }
+        set {
+            self.asLayoutElement?.style.maxWidth = ASDimension(unit: .fraction, value: newValue)
+        }
+    }
+
+    public var preferredSize: CGSize {
+        get {
+            return self.asLayoutElement?.style.preferredSize ?? CGSize.zero
+        }
+        set {
+            self.asLayoutElement?.style.preferredSize = newValue
+        }
+    }
+    
+    public var minSize: CGSize {
+        get {
+            return self.asLayoutElement?.style.minSize ?? CGSize.zero
+        }
+        set {
+            self.asLayoutElement?.style.minSize = newValue
+        }
+    }
+
+    public var maxSize: CGSize {
+        get {
+            return self.asLayoutElement?.style.maxSize ?? UIScreen.main.bounds.size
+        }
+        set {
+            self.asLayoutElement?.style.maxSize = newValue
+        }
+    }
+    
+    public var relativePreferredSize: CGSize {
+        get {
+            return (self.asLayoutElement != nil) ? CGSize(width: self.asLayoutElement!.style.preferredLayoutSize.width.value, height: self.asLayoutElement!.style.preferredLayoutSize.height.value) : CGSize.zero
+        }
+        set {
+            self.asLayoutElement?.style.preferredLayoutSize = ASLayoutSize(width: ASDimension(unit: .fraction, value: newValue.width), height: ASDimension(unit: .fraction, value: newValue.height))
+        }
+    }
+    
+    public var relativeMinSize: CGSize {
+        get {
+            return (self.asLayoutElement != nil) ? CGSize(width: self.asLayoutElement!.style.minLayoutSize.width.value, height: self.asLayoutElement!.style.minLayoutSize.height.value) : CGSize.zero
+        }
+        set {
+            self.asLayoutElement?.style.minLayoutSize = ASLayoutSize(width: ASDimension(unit: .fraction, value: newValue.width), height: ASDimension(unit: .fraction, value: newValue.height))
+        }
+    }
+    
+    public var relativeMaxSize: CGSize {
+        get {
+            return (self.asLayoutElement != nil) ? CGSize(width: self.asLayoutElement!.style.maxLayoutSize.width.value, height: self.asLayoutElement!.style.maxLayoutSize.height.value) : CGSize(width: 1, height: 1)
+        }
+        set {
+            self.asLayoutElement?.style.maxLayoutSize = ASLayoutSize(width: ASDimension(unit: .fraction, value: newValue.width), height: ASDimension(unit: .fraction, value: newValue.height))
+        }
+    }
+
 }
 
 

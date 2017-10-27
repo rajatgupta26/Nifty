@@ -9,6 +9,9 @@ import Foundation
 import JavaScriptCore
 import AsyncDisplayKit
 /*
+ var attributedText: String? {get set}
+ var truncationAttributedText: String? {get set}
+
  @property (nullable, nonatomic, strong) NSArray<UIBezierPath *> *exclusionPaths;
  @abstract Inset each line of the placeholder.
  @property (nonatomic, readonly, assign) UIEdgeInsets shadowPadding;
@@ -39,7 +42,7 @@ import AsyncDisplayKit
 @property (nullable, nonatomic, copy) NSAttributedString *truncationAttributedString ASDISPLAYNODE_DEPRECATED_MSG("Use .truncationAttributedText instead.");
  */
 
-public typealias NTLineBreakMode = Int
+public typealias NTLineBreakMode = NSLineBreakMode.RawValue
 public let kNTLineBreakModeByTruncatingTail = NSLineBreakMode.byTruncatingTail.rawValue
 public let kNTLineBreakModeByWordWrapping = NSLineBreakMode.byWordWrapping.rawValue
 public let kNTLineBreakModeByCharWrapping = NSLineBreakMode.byCharWrapping.rawValue
@@ -51,8 +54,8 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
 @objc public protocol NTTextNodeExports: JSExport, NTControlNodeExport {
     
     //NTLOOK: Using string only for now, will solution for NSAttributedString later
-    var attributedText: String? {get set}
-    var truncationAttributedText: String? {get set}
+    var text: String? {get set}
+    var truncationText: String? {get set}
     var additionalTruncationMessage: String? {get set}
     var truncationMode: NTLineBreakMode {get set}
     var truncated: Bool {get}
@@ -60,6 +63,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
     var lineCount: UInt {get} //readonly property
     var textPlaceholderEnabled: Bool {get set}
     var placeholderColor: UIColor? {get set}
+    var placeholderInset: [String: Double] {get set}
     var shadowColor: UIColor? {get set}
     var shadowOpacity: Double {get set}
     var shadowRadius: Double {get set}
@@ -78,7 +82,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         return ASTextNode()
     }
     
-    public var attributedText: String? {
+    public var text: String? {
         get {
             return self._textNode?.attributedText?.string
         }
@@ -87,7 +91,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var truncationAttributedText: String? {
+    public var truncationText: String? {
         get {
             return self._textNode?.truncationAttributedText?.string
         }
@@ -114,7 +118,11 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var truncated: Bool = false
+    public var truncated: Bool {
+        get {
+            return self._textNode?.isTruncated ?? false
+        }
+    }
     
     public var maximumNumberOfLines: UInt // default==NSUInteger  (undefined for layer-backed nodes)
         {
@@ -132,9 +140,44 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var textPlaceholderEnabled: Bool = false
-    public var placeholderColor: UIColor?
-    public var shadowColor: UIColor?
+    public var textPlaceholderEnabled: Bool {
+        get {
+            return self._textNode?.placeholderEnabled ?? false
+        }
+        set {
+            self._textNode?.placeholderEnabled = newValue
+        }
+    }
+    
+    public var placeholderColor: UIColor? {
+        get {
+            return self._textNode?.placeholderColor
+        }
+        set {
+            self._textNode?.placeholderColor = newValue
+        }
+    }
+    
+    public var shadowColor: UIColor? {
+        get {
+            if let color = self._textNode?.shadowColor {
+                return UIColor(cgColor: color)
+            }
+            return nil
+        }
+        set {
+            self._textNode?.shadowColor = newValue?.cgColor
+        }
+    }
+    
+    public var placeholderInset: [String : Double] {
+        get {
+            return NTConverter.edgeInsetsToMap(self._textNode?.placeholderInsets ?? UIEdgeInsets.zero)
+        }
+        set {
+            self._textNode?.placeholderInsets = NTConverter.mapToEdgeInsets(newValue) ?? UIEdgeInsets.zero
+        }
+    }
     
     public var shadowOpacity: Double // default=0.0
         {
@@ -156,7 +199,14 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var shadowOffset: CGSize = CGSize.zero
+    public var shadowOffset: CGSize {
+        get {
+            return self._textNode?.shadowOffset ?? CGSize.zero
+        }
+        set {
+            self._textNode?.shadowOffset = newValue
+        }
+    }
 }
 
 extension NTTextNode {

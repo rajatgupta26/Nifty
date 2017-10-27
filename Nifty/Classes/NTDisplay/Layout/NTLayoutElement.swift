@@ -8,6 +8,7 @@
 
 import Foundation
 import AsyncDisplayKit
+import JavaScriptCore
 
 
 @objc public enum NTLayoutElementType: UInt {
@@ -15,8 +16,58 @@ import AsyncDisplayKit
     case node
 }
 
+/*
+ @property (nonatomic, assign, readwrite) ASDimension width;
 
-@objc public protocol NTLayoutElement: class {
+ @property (nonatomic, assign, readwrite) ASDimension height;
+
+ @property (nonatomic, assign, readwrite) ASDimension minHeight;
+ 
+ @property (nonatomic, assign, readwrite) ASDimension maxHeight;
+
+ @property (nonatomic, assign, readwrite) ASDimension minWidth;
+
+ @property (nonatomic, assign, readwrite) ASDimension maxWidth;
+ 
+ @property (nonatomic, assign) CGSize preferredSize;
+ 
+ @property (nonatomic, assign) CGSize minSize;
+ 
+ @property (nonatomic, assign) CGSize maxSize;
+ 
+ @property (nonatomic, assign, readwrite) ASLayoutSize preferredLayoutSize;
+ 
+ @property (nonatomic, assign, readwrite) ASLayoutSize minLayoutSize;
+ 
+ @property (nonatomic, assign, readwrite) ASLayoutSize maxLayoutSize;
+*/
+
+@objc public protocol NTLayoutElementStyleExport: JSExport {
+    var width: CGFloat {get set}
+    var relativeWidth: CGFloat {get set}
+    
+    var height: CGFloat {get set}
+    var relativeHeight: CGFloat {get set}
+    
+    var minHeight: CGFloat {get set}
+    var relativeMinHeight: CGFloat {get set}
+    
+    var maxHeight: CGFloat {get set}
+    var relativeMaxHeight: CGFloat {get set}
+    
+    var minWidth: CGFloat {get set}
+    var relativeMinWidth: CGFloat {get set}
+    
+    var maxWidth: CGFloat {get set}
+    var relativeMaxWidth: CGFloat {get set}
+    
+    var preferredSize: CGSize {get set}
+    var relativePreferredSize: CGSize {get set}
+}
+
+
+
+@objc public protocol NTLayoutElement: class, NTLayoutElementStyleExport {
     
     var layoutElementType: NTLayoutElementType {get}
     
@@ -38,6 +89,7 @@ import AsyncDisplayKit
      */
 }
 
+//NTLOOK: All ASDimension values will be created with ASDimensionUnitPoints only. Assuming that Nifty will operate only on points.
 
 extension NTLayoutElement {
     
@@ -53,8 +105,7 @@ extension NTLayoutElement {
             return nil
         }
     }
-    
-    
+        
 //    var asLayoutElement: ASLayoutElement? {
 //        get {
 //            return nil

@@ -19,22 +19,25 @@ import AsyncDisplayKit
 - (nullable UIImage *)backgroundImageForState:(UIControlState)state AS_WARN_UNUSED_RESULT;
 */
 
+
+
 @objc public protocol NTButtonNodeExports: JSExport, NTControlNodeExport {
     
-    var titleNode: NTTextNode? {get set}
-    var imageNode: NTImageNode? {get set}
-    var backgroundImageNode: NTImageNode? {get set}
-    var contentSpacing: Double {get set}
+//    var titleNode: NTTextNode? {get set}
+//    var imageNode: NTImageNode? {get set}
+//    var backgroundImageNode: NTImageNode? {get set}
+    var contentSpacing: CGFloat {get set}
+    var title: String? {get set}
     var laysOutHorizontally: Bool {get set}
-    func setTitle(_ title: String, _ font: UIFont, _ color: UIColor, _ state: UIControlState)
-    func setBackgroundImage(_ image: UIImage, _ state: UIControlState)
-    func setImage(_ image: UIImage, _ state: UIControlState)
+    func setTitle(_ title: String, _ font: UIFont?, _ color: UIColor?, _ state: NTControlState)
+    func setBackgroundImage(_ image: UIImage?, _ state: NTControlState)
+    func setImage(_ image: UIImage?, _ state: NTControlState)
 }
 
 @objc public class NTButtonNode: NTControlNode, NTButtonNodeExports {
-    private var _buttonNode: NTButtonNode? {
+    private var _buttonNode: ASButtonNode? {
         get {
-            return self.asNode as? NTButtonNode
+            return self.asNode as? ASButtonNode
         }
     }
     
@@ -42,55 +45,76 @@ import AsyncDisplayKit
         return ASButtonNode()
     }
     
-    public var titleNode: NTTextNode? {
-        get{
-            return self._buttonNode?.titleNode
+    
+    public var title: String? {
+        get {
+            return self._buttonNode?.titleNode.attributedText?.string
         }
         set {
-            self._buttonNode?.titleNode = newValue
+            if let value = newValue {
+                self._buttonNode?.setTitle(value, with: nil, with: nil, for: .normal)
+            } else {
+                self._buttonNode?.titleNode.attributedText = nil
+            }
         }
     }
     
-    public var imageNode: NTImageNode? {
-        get{
-            return self._buttonNode?.imageNode
-        }
-        set {
-            self._buttonNode?.imageNode = newValue
-        }
-    }
+//    public var titleNode: NTTextNode? {
+//        get{
+//            return self._buttonNode?.titleNode
+//        }
+//        set {
+//            self._buttonNode?.titleNode = newValue
+//        }
+//    }
+//    
+//    public var imageNode: NTImageNode? {
+//        get{
+//            return self._buttonNode?.imageNode
+//        }
+//        set {
+//            self._buttonNode?.imageNode = newValue
+//        }
+//    }
+//    
+//    public var backgroundImageNode: NTImageNode? {
+//        get{
+//            return self._buttonNode?.backgroundImageNode
+//        }
+//        set {
+//            self._buttonNode?.backgroundImageNode = newValue
+//        }
+//    }
     
-    public var backgroundImageNode: NTImageNode? {
-        get{
-            return self._buttonNode?.backgroundImageNode
-        }
-        set {
-            self._buttonNode?.backgroundImageNode = newValue
-        }
-    }
-    
-    public var contentSpacing: Double // default=0.0
+    public var contentSpacing: CGFloat // default=0.0
     {
         get {
-            return Double(self._buttonNode?.contentSpacing ?? 0.0)
+            return self._buttonNode?.contentSpacing ?? 0.0
         }
         set {
             self._buttonNode?.contentSpacing = newValue
         }
     }
     
-    public var laysOutHorizontally: Bool = false
-    
-    public func setTitle(_ title: String, _ font: UIFont, _ color: UIColor, _ state: UIControlState) {
-        self._buttonNode?.setTitle(title, font, color, state)
+    public var laysOutHorizontally: Bool {
+        get {
+            return self._buttonNode?.laysOutHorizontally ?? true
+        }
+        set {
+            self._buttonNode?.laysOutHorizontally = newValue
+        }
     }
     
-    public func setBackgroundImage(_ image: UIImage, _ state: UIControlState){
-        self._buttonNode?.setBackgroundImage(image, state)
+    public func setTitle(_ title: String, _ font: UIFont?, _ color: UIColor?, _ state: NTControlState) {
+        self._buttonNode?.setTitle(title, with: font, with: color, for: UIControlState(rawValue: state))
     }
     
-    public func setImage(_ image: UIImage, _ state: UIControlState){
-        self._buttonNode?.setImage(image, state)
+    public func setBackgroundImage(_ image: UIImage?, _ state: NTControlState){
+        self._buttonNode?.setBackgroundImage(image, for: UIControlState(rawValue: state))
+    }
+    
+    public func setImage(_ image: UIImage?, _ state: NTControlState){
+        self._buttonNode?.setImage(image, for: UIControlState(rawValue: state))
     }
 }
 
