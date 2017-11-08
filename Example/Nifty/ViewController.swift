@@ -86,20 +86,20 @@ extension ViewController: ASTableDataSource, ASTableDelegate {
         return ASSizeRange(min: CGSize(width: self.view.bounds.width, height: 100), max: CGSize(width: self.view.bounds.width, height: 100))
     }
     
-    func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
-        let cell = MyCellNode(scriptName: "MyCell", moduleName: nil, properties: nil, executor: self._sharedContext ? self._commonExecutor : nil)
-        return cell
-    }
-    
-//    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-//        let nodeBlock: ASCellNodeBlock = { [unowned self] _ in
-////            let executor = self?._commonExecutor ?? NTExecutor()
-//            print("Common executor - \(self._commonExecutor)")
-//            let cell = MyCellNode(scriptName: "MyCell", moduleName: nil, properties: nil, executor: self._sharedContext ? self._commonExecutor : nil)
-//            return cell
-//        }
-//        return nodeBlock
+//    func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
+//        let cell = MyCellNode(scriptName: "MyCell", moduleName: nil, properties: nil, executor: self._sharedContext ? self._commonExecutor : nil)
+//        return cell
 //    }
+    
+    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        let nodeBlock: ASCellNodeBlock = { [unowned self] _ in
+//            let executor = self?._commonExecutor ?? NTExecutor()
+            print("Common executor - \(self._commonExecutor)")
+            let cell = MyCellNode(scriptName: "MyCell", moduleName: nil, properties: nil, executor: self._sharedContext ? self._commonExecutor : nil)
+            return cell
+        }
+        return nodeBlock
+    }
     
     
     func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
