@@ -13,9 +13,9 @@ import CwlUtils
 
 public protocol NTExecutorDelegate {
     func sourceURL(forScript scriptName: String, executor: NTExecutor) -> URL?
-    func uniqueIdentifier(forContextWith scriptName: String, url: URL?, executor: NTExecutor) -> String
-    func extraModules(forScript scriptName: String, executor: NTExecutor) -> [NTModule.Type]?
-    func exceptionHandler(forScript scriptName: String, executor: NTExecutor) -> ((JSContext?, JSValue?) -> Swift.Void)!
+    func uniqueIdentifier(forContextWith scriptName: String, url: URL, executor: NTExecutor) -> String
+    func extraModules(forScript scriptName: String, url: URL, executor: NTExecutor) -> [NTModule.Type]?
+    func exceptionHandler(forScript scriptName: String, url: URL, executor: NTExecutor) -> ((JSContext?, JSValue?) -> Swift.Void)?
     func loadScript(forScriptURL scriptURL: URL, executor: NTExecutor) -> String?
 }
 
@@ -24,15 +24,15 @@ extension NTExecutorDelegate {
         return defaultURL(scriptName)
     }
     
-    public func uniqueIdentifier(forContextWith scriptName: String, url: URL?, executor: NTExecutor) -> String {
+    public func uniqueIdentifier(forContextWith scriptName: String, url: URL, executor: NTExecutor) -> String {
         return defaultUID(scriptName, url: url)
     }
 
-    public func extraModules(forScript scriptName: String, executor: NTExecutor) -> [NTModule.Type]? {
+    public func extraModules(forScript scriptName: String, url: URL, executor: NTExecutor) -> [NTModule.Type]? {
         return nil
     }
 
-    public func exceptionHandler(forScript scriptName: String, executor: NTExecutor) -> ((JSContext?, JSValue?) -> Swift.Void)! {
+    public func exceptionHandler(forScript scriptName: String, url: URL, executor: NTExecutor) -> ((JSContext?, JSValue?) -> Swift.Void)? {
         return nil
     }
     
@@ -82,10 +82,11 @@ public class NTExecutor: NTContextDelegate {
     fileprivate let _mutex: PThreadMutex = PThreadMutex(type: .recursive)
 
     //NTLOOK: Should there be an option to ues a shared context?
-    fileprivate lazy var _context: NTContext = {
-        let context = NTContext(withDelegate: self)
-        return context
-    } ()
+    fileprivate var _context: NTContext!
+    
+    fileprivate func defaultContext() -> NTContext {
+        return NTContext(withDelegate: self)
+    }
     
     public var context: NTContext {
         get {
@@ -95,16 +96,15 @@ public class NTExecutor: NTContextDelegate {
     
     
     public var delegate: NTExecutorDelegate?
-}
-
-
-extension NTExecutor {
     
-    public convenience init(withDelegate delegate: NTExecutorDelegate?) {
-        self.init()
+    
+    public required init(withDelegate delegate: NTExecutorDelegate? = nil, context: NTContext? = nil) {
+        _context = context ?? defaultContext()
         self.delegate = delegate
     }
 }
+
+
 
 
 
@@ -149,7 +149,7 @@ extension NTExecutor {
         //NTLOOK: validate script here
         
         //Not providing a default value here since NTContext will add a default exception handler itself
-        let exceptionHandler = self.delegate?.exceptionHandler(forScript: name, executor: self)
+        let exceptionHandler = self.delegate?.exceptionHandler(forScript: name, url: sourceURL, executor: self)
         
         //Set exception handler on context
         if let handler = exceptionHandler {
@@ -157,7 +157,7 @@ extension NTExecutor {
         }
         
         //NTLOOK: Make sure this is being used right. Get better understanding of this mutex wrapper
-        _mutex.trySync { () -> Void in
+        _mutex.fastSync { () -> Void in
             var scriptObj: NTScript
             //Find out if there is already a script with same name and url that has been evaluated by the context
             if let matchingScripts: [NTScript] = _evaluatedScripts?.filter({ (aScript) -> Bool in
@@ -188,7 +188,7 @@ extension NTExecutor {
          Need to explore the react native approach a bit more. Maybe there is something we could benefit from.
          */
         
-        if let extraModdules = self.delegate?.extraModules(forScript: name, executor: self) {
+        if let extraModdules = self.delegate?.extraModules(forScript: name, url: sourceURL, executor: self) {
             for module in extraModdules {
                 _context.setObject(module, forKeyedSubscript: module.moduleName() as NSString)
                 //NTLOOK: key for constants is ModuleName+Constants.<constant> right now
@@ -197,32 +197,27 @@ extension NTExecutor {
         }
         
         //Set name of context for debugging purposes
-        NTD_EXECUTE {
-            _context.name = self.delegate?.uniqueIdentifier(forContextWith: name, url: sourceURL, executor: self) ?? defaultUID(name, url: sourceURL)
+        if NT_DEBUG {
+            _context.name = self.delegate?.uniqueIdentifier(forContextWith: name, url: sourceURL, executor: self) ?? _context.name ?? defaultUID(name, url: sourceURL)
         }
         
         
         //Evaluate script
         //NTLOOK: Need to figure out which approach is better to bifurcate debug and release codes. 
         //And how to avoid block passing and environment capture
-//        var result: JSValue?
-//        
-//        if let value = NTD_EXECUTE({ () -> JSValue? in
+//
+//        let result: JSValue? = NT_EXECUTE(debug: { () -> JSValue? in
 //            return _context.evaluateScript(script, withSourceURL: sourceURL)
-//        }) {
-//            result = value
-//        }
-//        
-//        if let value = NTR_EXECUTE({ () -> JSValue? in
+//        }) { () -> JSValue? in
 //            return _context.evaluateScript(script)
-//        }) {
-//            result = value
 //        }
-
-        let result: JSValue? = NT_EXECUTE(debug: { () -> JSValue? in
-            return _context.evaluateScript(script, withSourceURL: sourceURL)
-        }) { () -> JSValue? in
-            return _context.evaluateScript(script)
+        
+        // Using if-else to avoid block capture. Pending evaluation.
+        let result: JSValue?
+        if NT_DEBUG {
+            result = _context.evaluateScript(script, withSourceURL: sourceURL)
+        } else {
+            result = _context.evaluateScript(script)
         }
         
         return result
@@ -262,7 +257,6 @@ extension NTExecutor {
         
         return _context.objectForKeyedSubscript(key)
     }
-    
     
     
     

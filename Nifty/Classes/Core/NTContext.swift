@@ -88,9 +88,13 @@ public class NTContext: JSContext {
         
         // Set name of context
         // Useful for debugging
-        NT_EXECUTE(debug: {
+//        NT_EXECUTE(debug: {
+//            self.name = self.delegate?.uniqueIdentifierFor(self) ?? defaultUID()
+//        }) {}
+        
+        if NT_DEBUG {
             self.name = self.delegate?.uniqueIdentifierFor(self) ?? defaultUID()
-        }) {}
+        }
         
         //NTLOOK: Provide a way for the host app to add custom modules to the context via delegate or some other method
         /*

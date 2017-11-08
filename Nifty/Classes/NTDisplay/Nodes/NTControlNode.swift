@@ -49,18 +49,6 @@ public typealias NTControlNodeCallback = @convention(block) (NTControlNode) -> (
     var tracking: Bool {get}
     var touchInside: Bool {get}
     
-    //MARK: Actions 
-    var onTouchDown: NTControlNodeCallback? {get set}
-    var onTouchDownRepeat: NTControlNodeCallback? {get set}
-    var onTouchDragInside: NTControlNodeCallback? {get set}
-    var onTouchDragOutside: NTControlNodeCallback? {get set}
-    var onTouchUpInside: NTControlNodeCallback? {get set}
-    var onTouchUpOutside: NTControlNodeCallback? {get set}
-    var onTouchCancel: NTControlNodeCallback? {get set}
-    var onValueChanged: NTControlNodeCallback? {get set}
-    var onPrimaryActionTriggered: NTControlNodeCallback? {get set}
-    var onAllEvents: NTControlNodeCallback? {get set}
-    
     func removeAllActions()
 }
 
@@ -74,8 +62,23 @@ public typealias NTControlNodeCallback = @convention(block) (NTControlNode) -> (
         }
     }
     
+    required public init() {
+        super.init()
+        self._controlNode?.addTarget(self, action: #selector(_onAllEvents), forControlEvents: .allEvents)
+        self._controlNode?.addTarget(self, action: #selector(_onTouchDown), forControlEvents: .touchDown)
+        self._controlNode?.addTarget(self, action: #selector(_onTouchDownRepeat), forControlEvents: .touchDownRepeat)
+        self._controlNode?.addTarget(self, action: #selector(_onTouchDragInside), forControlEvents: .touchDragInside)
+        self._controlNode?.addTarget(self, action: #selector(_onTouchDragOutside), forControlEvents: .touchDragOutside)
+        self._controlNode?.addTarget(self, action: #selector(_onTouchUpInside), forControlEvents: .touchUpInside)
+        self._controlNode?.addTarget(self, action: #selector(_onTouchUpOutside), forControlEvents: .touchUpOutside)
+        self._controlNode?.addTarget(self, action: #selector(_onTouchCancel), forControlEvents: .touchCancel)
+        self._controlNode?.addTarget(self, action: #selector(_onValueChanged), forControlEvents: .valueChanged)
+        self._controlNode?.addTarget(self, action: #selector(_onPrimaryActionTriggered), forControlEvents: .primaryActionTriggered)
+    }
+    
     public override func loadNode() -> ASDisplayNode {
-        return ASControlNode()
+        let controlNode = ASControlNode()
+        return controlNode
     }
 
     
@@ -124,168 +127,87 @@ public typealias NTControlNodeCallback = @convention(block) (NTControlNode) -> (
     
     //MARK: Actions
     
-    @objc private func _onTouchDown() {
-        if let callback = onTouchDown {
-            callback(self)
+    @objc public func _onTouchDown() {
+        if let dispatcher = self.ntDispatcher?.value {
+            print(dispatcher)
+            
+            let _ = dispatcher.objectForKeyedSubscript("touchHandler").call(withArguments: [self, NTControlEventTouchDown])
         }
     }
     
     @objc private func _onTouchDownRepeat() {
-        if let callback = onTouchDownRepeat {
-            callback(self)
+        if let dispatcher = self.ntDispatcher?.value {
+            print(dispatcher)
+            
+            let _ = dispatcher.objectForKeyedSubscript("touchHandler").call(withArguments: [self, NTControlEventTouchDownRepeat])
         }
     }
 
     @objc private func _onTouchDragInside() {
-        if let callback = onTouchDragInside {
-            callback(self)
+        if let dispatcher = self.ntDispatcher?.value {
+            print(dispatcher)
+            
+            let _ = dispatcher.objectForKeyedSubscript("touchHandler").call(withArguments: [self, NTControlEventTouchDragInside])
         }
     }
 
     @objc private func _onTouchDragOutside() {
-        if let callback = onTouchDragOutside {
-            callback(self)
+        if let dispatcher = self.ntDispatcher?.value {
+            print(dispatcher)
+            
+            let _ = dispatcher.objectForKeyedSubscript("touchHandler").call(withArguments: [self, NTControlEventTouchDragOutside])
         }
     }
 
-    @objc private func _onTouchUpInside() {
-        if let callback = onTouchUpInside {
-            callback(self)
+    @objc public func _onTouchUpInside() {
+        if let dispatcher = self.ntDispatcher?.value {
+            print(dispatcher)
+            
+            let _ = dispatcher.objectForKeyedSubscript("touchHandler").call(withArguments: [self, NTControlEventTouchUpInside])
         }
     }
 
     @objc private func _onTouchUpOutside() {
-        if let callback = onTouchUpOutside {
-            callback(self)
+        if let dispatcher = self.ntDispatcher?.value {
+            print(dispatcher)
+            
+            let _ = dispatcher.objectForKeyedSubscript("touchHandler").call(withArguments: [self, NTControlEventTouchUpOutside])
         }
     }
 
     @objc private func _onTouchCancel() {
-        if let callback = onTouchCancel {
-            callback(self)
+        if let dispatcher = self.ntDispatcher?.value {
+            print(dispatcher)
+            
+            let _ = dispatcher.objectForKeyedSubscript("touchHandler").call(withArguments: [self, NTControlEventTouchCancel])
         }
     }
 
     @objc private func _onValueChanged() {
-        if let callback = onValueChanged {
-            callback(self)
+        if let dispatcher = self.ntDispatcher?.value {
+            print(dispatcher)
+            
+            let _ = dispatcher.objectForKeyedSubscript("touchHandler").call(withArguments: [self, NTControlEventValueChanged])
         }
     }
 
     @objc private func _onPrimaryActionTriggered() {
-        if let callback = onPrimaryActionTriggered {
-            callback(self)
+        if let dispatcher = self.ntDispatcher?.value {
+            print(dispatcher)
+            
+            let _ = dispatcher.objectForKeyedSubscript("touchHandler").call(withArguments: [self, NTControlEventPrimaryActionTriggered])
         }
     }
     
     @objc private func _onAllEvents() {
-        if let callback = onAllEvents {
-            callback(self)
+        if let dispatcher = self.ntDispatcher?.value {
+            print(dispatcher)
+            
+            let _ = dispatcher.objectForKeyedSubscript("touchHandler").call(withArguments: [self, NTControlEventAllEvents])
         }
     }
     
 
-    
-    public var onTouchDown: NTControlNodeCallback? {
-        didSet {
-            if self.onTouchDown != nil {
-                self._controlNode?.addTarget(self, action: #selector(_onTouchDown), forControlEvents: .touchDown)
-            } else {
-                self._controlNode?.removeTarget(self, action: #selector(_onTouchDown), forControlEvents: .touchDown)
-            }
-        }
-    }
-    
-    public var onTouchDownRepeat: NTControlNodeCallback? {
-        didSet {
-            if self.onTouchDownRepeat != nil {
-                self._controlNode?.addTarget(self, action: #selector(_onTouchDownRepeat), forControlEvents: .touchDownRepeat)
-            } else {
-                self._controlNode?.removeTarget(self, action: #selector(_onTouchDownRepeat), forControlEvents: .touchDownRepeat)
-            }
-        }
-    }
-    
-    public var onTouchDragInside: NTControlNodeCallback? {
-        didSet {
-            if self.onTouchDragInside != nil {
-                self._controlNode?.addTarget(self, action: #selector(_onTouchDragInside), forControlEvents: .touchDragInside)
-            } else {
-                self._controlNode?.removeTarget(self, action: #selector(_onTouchDragInside), forControlEvents: .touchDragInside)
-            }
-        }
-    }
-    
-    public var onTouchDragOutside: NTControlNodeCallback? {
-        didSet {
-            if self.onTouchDragOutside != nil {
-                self._controlNode?.addTarget(self, action: #selector(_onTouchDragOutside), forControlEvents: .touchDragOutside)
-            } else {
-                self._controlNode?.removeTarget(self, action: #selector(_onTouchDragOutside), forControlEvents: .touchDragOutside)
-            }
-        }
-    }
-    
-    public var onTouchUpInside: NTControlNodeCallback? {
-        didSet {
-            if self.onTouchUpInside != nil {
-                self._controlNode?.addTarget(self, action: #selector(_onTouchUpInside), forControlEvents: .touchUpInside)
-            } else {
-                self._controlNode?.removeTarget(self, action: #selector(_onTouchUpInside), forControlEvents: .touchUpInside)
-            }
-        }
-    }
-    
-    public var onTouchUpOutside: NTControlNodeCallback? {
-        didSet {
-            if self.onTouchUpOutside != nil {
-                self._controlNode?.addTarget(self, action: #selector(_onTouchUpOutside), forControlEvents: .touchUpOutside)
-            } else {
-                self._controlNode?.removeTarget(self, action: #selector(_onTouchUpOutside), forControlEvents: .touchUpOutside)
-            }
-        }
-    }
-    
-    public var onTouchCancel: NTControlNodeCallback? {
-        didSet {
-            if self.onTouchCancel != nil {
-                self._controlNode?.addTarget(self, action: #selector(_onTouchCancel), forControlEvents: .touchCancel)
-            } else {
-                self._controlNode?.removeTarget(self, action: #selector(_onTouchCancel), forControlEvents: .touchCancel)
-            }
-        }
-    }
-    
-    public var onValueChanged: NTControlNodeCallback? {
-        didSet {
-            if self.onValueChanged != nil {
-                self._controlNode?.addTarget(self, action: #selector(_onValueChanged), forControlEvents: .valueChanged)
-            } else {
-                self._controlNode?.removeTarget(self, action: #selector(_onValueChanged), forControlEvents: .valueChanged)
-            }
-        }
-    }
-    
-    public var onPrimaryActionTriggered: NTControlNodeCallback? {
-        didSet {
-            if self.onPrimaryActionTriggered != nil {
-                self._controlNode?.addTarget(self, action: #selector(_onPrimaryActionTriggered), forControlEvents: .primaryActionTriggered)
-            } else {
-                self._controlNode?.removeTarget(self, action: #selector(_onPrimaryActionTriggered), forControlEvents: .primaryActionTriggered)
-            }
-        }
-    }
-    
-    public var onAllEvents: NTControlNodeCallback? {
-        didSet {
-            if self.onAllEvents != nil {
-                self._controlNode?.addTarget(self, action: #selector(_onAllEvents), forControlEvents: .allEvents)
-            } else {
-                self._controlNode?.removeTarget(self, action: #selector(_onAllEvents), forControlEvents: .allEvents)
-            }
-        }
-    }
-    
     
     public func removeAllActions() {
         self._controlNode?.removeTarget(nil, action: nil, forControlEvents: .allEvents)

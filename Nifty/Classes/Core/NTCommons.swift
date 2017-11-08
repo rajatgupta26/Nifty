@@ -7,6 +7,16 @@
 //
 
 import Foundation
+import CwlUtils
+
+
+public extension PThreadMutex {
+    func fastSync<R>(execute work: () throws -> R) rethrows -> R {
+        pthread_mutex_lock(&unsafeMutex)
+        defer { pthread_mutex_unlock(&unsafeMutex) }
+        return try work()
+    }
+}
 
 
 //NTLOOK: May be we can define a better debug criteria

@@ -10,10 +10,15 @@ import Foundation
 import JavaScriptCore
 
 
+@objc public protocol NTDispatcherModuleExports: JSExport {
+    func nt_setDispatcher(_ jsObject: JSValue)
+}
+
 public protocol NTModule: class {
     static func moduleName() -> String
     static func constantsToExport() -> [String: Any]?
 }
+
 
 /*
  NTLOOK:

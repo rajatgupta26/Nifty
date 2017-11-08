@@ -133,7 +133,7 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
 
 
 
-@objc public protocol NTNodeExport: JSExport {
+@objc public protocol NTNodeExport: JSExport, NTDispatcherModuleExports {
     
     func displayNodeRecursiveDescription() -> String
     
@@ -266,7 +266,7 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
         return node
     }
     
-    public func _setup() {
+    private func _setup() {
         self._asNode.automaticallyManagesSubnodes = true
         //NTLOOK: Implement this
         self._asNode.layoutSpecBlock = { node, constrainedSize in
@@ -307,7 +307,42 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
         }
     }
     
+    // Must be set nil in deinit in order to remove managed reference for dispatcher
+    public var ntDispatcher: JSManagedValue? {
+        
+        willSet {
+            if newValue == nil {
+                if let context = JSContext.current() ?? executor()?.context {
+                    let delegate = UIApplication.shared.delegate
+                    context.setObject(delegate, forKeyedSubscript: "SharedOwner" as NSString)
+                    context.virtualMachine.removeManagedReference(ntDispatcher, withOwner: delegate)
+                } else {
+                    print("Context not found!")
+                }
+            }
+        }
+        
+        didSet {
+            if ntDispatcher != nil {
+                if let context = JSContext.current() ?? executor()?.context {
+                    let delegate = UIApplication.shared.delegate
+                    context.setObject(delegate, forKeyedSubscript: "SharedOwner" as NSString)
+                    context.virtualMachine.addManagedReference(ntDispatcher, withOwner: delegate)
+                } else {
+                    print("Context not found!")
+                }
+            }
+        }
+    }
     
+    
+    open func nt_setDispatcher(_ jsObject: JSValue) {
+        self.ntDispatcher = JSManagedValue(value: jsObject, andOwner: self)
+    }
+    
+    deinit {
+        ntDispatcher = nil
+    }
 }
 
 
@@ -339,7 +374,7 @@ extension NTNode {
     private func _insertSubnode(_ subnode: NTNode, at index: Int, removeSubnode subnodeToRemove: NTNode!) {
         
         if subnode != self {
-            _mutex.trySync { () -> Void in
+            _mutex.fastSync { () -> Void in
                 if index <= self._subNodes.count {
                     subnode._supernode = self
                     if index == self._subNodes.count {
@@ -352,7 +387,7 @@ extension NTNode {
         }
         
         if let subnodeToRemove = subnodeToRemove {
-            _mutex.trySync { () -> Void in
+            _mutex.fastSync { () -> Void in
                 if subnodeToRemove._supernode == self {
                     self._removeSubnode(subnode: subnodeToRemove)
                 }
@@ -371,12 +406,14 @@ extension NTNode {
     open func addSubnode(_ subnode: NTNode) {
         var count: Int = 0
         
-        _mutex.trySync { () -> Void in
+        _mutex.fastSync { () -> Void in
             count = self._subNodes.count
         }
         
         self._insertSubnode(subnode, at: count, removeSubnode: nil)
-        self._asNode.addSubnode(subnode._asNode)
+        DispatchQueue.main.async {
+            self._asNode.addSubnode(subnode._asNode)
+        }
     }
     
     
@@ -393,13 +430,15 @@ extension NTNode {
         
         var index: Int?
         
-        _mutex.trySync { () -> Void in
+        _mutex.fastSync { () -> Void in
             index = self._subNodes.index(of: below)
         }
         
         if let index = index {
             self._insertSubnode(subnode, at: index, removeSubnode: nil)
-            self._asNode.insertSubnode(subnode._asNode, belowSubnode: below._asNode)
+            DispatchQueue.main.async {
+                self._asNode.insertSubnode(subnode._asNode, belowSubnode: below._asNode)
+            }
         }
     }
     
@@ -417,14 +456,16 @@ extension NTNode {
         
         var index: Int?
         
-        _mutex.trySync { () -> Void in
+        _mutex.fastSync { () -> Void in
             index = self._subNodes.index(of: above)
         }
         
         if let index = index {
             let actualIndex = index + 1
             self._insertSubnode(subnode, at: actualIndex, removeSubnode: nil)
-            self._asNode.insertSubnode(subnode._asNode, aboveSubnode: above._asNode)
+            DispatchQueue.main.async {
+                self._asNode.insertSubnode(subnode._asNode, aboveSubnode: above._asNode)
+            }
         }
     }
     
@@ -441,7 +482,9 @@ extension NTNode {
      */
     open func insertSubnodeAt(_ subnode: NTNode, _ idx: Int) {
         self._insertSubnode(subnode, at: idx, removeSubnode: nil)
-        self._asNode.insertSubnode(subnode._asNode, at: idx)
+        DispatchQueue.main.async {
+            self._asNode.insertSubnode(subnode._asNode, at: idx)
+        }
     }
     
     
@@ -460,13 +503,15 @@ extension NTNode {
         
         var index: Int?
         
-        _mutex.trySync { () -> Void in
+        _mutex.fastSync { () -> Void in
             index = self._subNodes.index(of: subnode)
         }
         
         if let index = index {
             self._insertSubnode(subnode, at: index, removeSubnode: replacementSubnode)
-            self._asNode.replaceSubnode(subnode._asNode, withSubnode: replacementSubnode._asNode)
+            DispatchQueue.main.async {
+                self._asNode.replaceSubnode(subnode._asNode, withSubnode: replacementSubnode._asNode)
+            }
         }
     }
     
@@ -482,7 +527,9 @@ extension NTNode {
                 supernode._removeSubnode(subnode: self)
             }
         }
-        self._asNode.removeFromSupernode()
+        DispatchQueue.main.async {
+            self._asNode.removeFromSupernode()
+        }
     }
 }
 
