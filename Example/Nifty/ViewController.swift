@@ -9,9 +9,10 @@
 import UIKit
 import Nifty
 import AsyncDisplayKit
+import CwlUtils
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, NTExecutorDelegate {
 
     fileprivate var _commonExecutor: NTExecutor!
     fileprivate var _rowCount: Int = 20
@@ -35,7 +36,7 @@ class ViewController: UIViewController {
     
     fileprivate var tableViewNode: ASTableNode!
 
-    fileprivate var _sharedContext: Bool = true
+    fileprivate var _sharedContext: Bool = false
     
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
         
@@ -50,6 +51,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         _commonExecutor = NTExecutor(withDelegate: self)
+        
+//        self._notificationObserver = NotificationCenter.default.addObserver(forName: .NSThreadWillExit, object: nil, queue: nil) { [weak self] (notification) in
+//            if let strong: ViewController = self {
+//                let threadID: String = "\(notification.object as! Thread)"
+//                strong._mutex.fastSync { () -> Void in
+//                    print("_notificationObserver: removing executor form pool for thread with ID - \(threadID)")
+//                    strong._executorPool[threadID] = nil
+//                }
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +80,30 @@ class ViewController: UIViewController {
         tableViewNode.backgroundColor = UIColor.purple
         
         self.view.addSubnode(tableViewNode)
+    }
+    
+    fileprivate lazy var _executorPool: [String: NSValue] = [:]
+    fileprivate lazy var _mutex: PThreadMutex = PThreadMutex(type: .recursive)
+
+    fileprivate var _notificationObserver: NSObjectProtocol!
+    
+    fileprivate func dequeReusableExecutor(forThreadID threadID: String) -> NTExecutor {
+        return _mutex.fastSync { () -> NTExecutor in
+            let executor: NTExecutor
+            if let value = _executorPool[threadID]?.nonretainedObjectValue as? NTExecutor {
+                print("dequeReusableExecutor: Found context in pool for thead id - \(threadID)")
+                executor = value
+            } else {
+                print("dequeReusableExecutor: Creating new executor for thread id - \(threadID)")
+                executor = NTExecutor()
+                _executorPool[threadID] = NSValue(nonretainedObject: executor)
+            }
+            return executor
+        }
+    }
+    
+    deinit {
+//        NotificationCenter.default.removeObserver(self._notificationObserver)
     }
 }
 
@@ -91,11 +126,18 @@ extension ViewController: ASTableDataSource, ASTableDelegate {
 //        return cell
 //    }
     
+    
+    
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         let nodeBlock: ASCellNodeBlock = { [unowned self] _ in
 //            let executor = self?._commonExecutor ?? NTExecutor()
-            print("Common executor - \(self._commonExecutor)")
-            let cell = MyCellNode(scriptName: "MyCell", moduleName: nil, properties: nil, executor: self._sharedContext ? self._commonExecutor : nil)
+            let threadID: String = "\(Thread.current)"
+            let executor: NTExecutor = self._sharedContext ? self._commonExecutor : self.dequeReusableExecutor(forThreadID: threadID)
+            
+            let cell = MyCellNode(scriptName: "MyCell", moduleName: nil, properties: nil, executor: executor)
+            
+            print("nodeBlockForRowAt: Executor - \(executor), Context - \(executor.context.name)")
+            
             return cell
         }
         return nodeBlock
@@ -131,8 +173,21 @@ extension ViewController: ASTableDataSource, ASTableDelegate {
 
 
 
-extension ViewController: NTExecutorDelegate {
-    
+extension Thread {
+
+//    fileprivate static var _instanceCounter: UInt =
+//    fileprivate static let _mutex: PThreadMutex = PThreadMutex(type: .recursive)
+//
+//    fileprivate func dequeReusableContext(forThreadID threadID: String) -> NTContext? {
+//        return Thread._mutex.fastSync { () -> NTContext? in
+//            if let context = Thread._contextPool[threadID] {
+//                return context
+//            }
+//            let context = NTContext()
+//            Thread._contextPool[threadID] = context
+//            return context
+//        }
+//    }
 }
 
 
