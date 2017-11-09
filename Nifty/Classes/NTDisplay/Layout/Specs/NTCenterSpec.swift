@@ -12,19 +12,19 @@ import AsyncDisplayKit
 
 
 //NTLOOK: Find a better way to map these enums to AsyncDisplayKit's. Goes for all of the enums.
-@objc public enum NTCenterSpecCenteringOption: UInt {
-    case none = 0
-    case x = 1
-    case y = 2
-    case xy = 3
-}
+public typealias NTCenterSpecCenteringOption = ASCenterLayoutSpecCenteringOptions.RawValue
+public let NTCenterSpecCenteringOptionX: NTCenterSpecCenteringOption = ASCenterLayoutSpecCenteringOptions.X.rawValue
+public let NTCenterSpecCenteringOptionY: NTCenterSpecCenteringOption = ASCenterLayoutSpecCenteringOptions.Y.rawValue
+public let NTCenterSpecCenteringOptionXY: NTCenterSpecCenteringOption = ASCenterLayoutSpecCenteringOptions.XY.rawValue
+public let NTCenterSpecCenteringOptionNone: NTCenterSpecCenteringOption = 0
 
-@objc public enum NTCenterSpecSizingOption: UInt {
-    case `default` = 0
-    case minX = 1
-    case minY = 2
-    case minXY = 3
-}
+public typealias NTCenterSpecSizingOption = ASCenterLayoutSpecSizingOptions.RawValue
+public let NTCenterSpecSizingOptionMinX: NTCenterSpecCenteringOption = ASCenterLayoutSpecSizingOptions.minimumX.rawValue
+public let NTCenterSpecSizingOptionMinY: NTCenterSpecCenteringOption = ASCenterLayoutSpecSizingOptions.minimumY.rawValue
+public let NTCenterSpecSizingOptionMinXY: NTCenterSpecCenteringOption = ASCenterLayoutSpecSizingOptions.minimumXY.rawValue
+public let NTCenterSpecSizingOptionDefault: NTCenterSpecCenteringOption = 0
+
+
 
 
 
@@ -39,14 +39,14 @@ import AsyncDisplayKit
 
 @objc public class NTCenterSpec: NTSpec {
 
-    private var _centeringOption: NTCenterSpecCenteringOption = .none
+    private var _centeringOption: NTCenterSpecCenteringOption = NTCenterSpecCenteringOptionNone
     public var centeringOption: NTCenterSpecCenteringOption {
         get {
             return _centeringOption
         }
     }
     
-    private var _sizingOption: NTCenterSpecSizingOption = .default
+    private var _sizingOption: NTCenterSpecSizingOption = NTCenterSpecSizingOptionDefault
     public var sizingOption: NTCenterSpecSizingOption {
         get {
             return _sizingOption
@@ -92,15 +92,15 @@ extension NTCenterSpec {
         return NTSpecConsts.Center.name
     }
     public override static func constantsToExport() -> [String: Any]? {
-        let constantsMap: [String: Any] = [NTSpecConsts.Center.centeringOption: [NTSpecConsts.Center.CenteringOption.none.rawValue: NTCenterSpecCenteringOption.none,
-                                                                                 NTSpecConsts.Center.CenteringOption.x.rawValue: NTCenterSpecCenteringOption.x,
-                                                                                 NTSpecConsts.Center.CenteringOption.y.rawValue: NTCenterSpecCenteringOption.y,
-                                                                                 NTSpecConsts.Center.CenteringOption.xy.rawValue: NTCenterSpecCenteringOption.xy],
+        let constantsMap: [String: Any] = [NTSpecConsts.Center.centeringOption: [NTSpecConsts.Center.CenteringOption.none.rawValue: NTCenterSpecCenteringOptionNone,
+                                                                                 NTSpecConsts.Center.CenteringOption.x.rawValue: NTCenterSpecCenteringOptionX,
+                                                                                 NTSpecConsts.Center.CenteringOption.y.rawValue: NTCenterSpecCenteringOptionY,
+                                                                                 NTSpecConsts.Center.CenteringOption.xy.rawValue: NTCenterSpecCenteringOptionXY],
                                            
-                                           NTSpecConsts.Center.sizingOption: [NTSpecConsts.Center.SizingOption.default.rawValue: NTCenterSpecSizingOption.default,
-                                                                              NTSpecConsts.Center.SizingOption.minX.rawValue: NTCenterSpecSizingOption.minX,
-                                                                              NTSpecConsts.Center.SizingOption.minY.rawValue: NTCenterSpecSizingOption.minY,
-                                                                              NTSpecConsts.Center.SizingOption.minXY.rawValue: NTCenterSpecSizingOption.minXY]]
+                                           NTSpecConsts.Center.sizingOption: [NTSpecConsts.Center.SizingOption.default.rawValue: NTCenterSpecSizingOptionDefault,
+                                                                              NTSpecConsts.Center.SizingOption.minX.rawValue: NTCenterSpecSizingOptionMinX,
+                                                                              NTSpecConsts.Center.SizingOption.minY.rawValue: NTCenterSpecSizingOptionMinY,
+                                                                              NTSpecConsts.Center.SizingOption.minXY.rawValue: NTCenterSpecSizingOptionMinXY]]
         return constantsMap
     }
 }

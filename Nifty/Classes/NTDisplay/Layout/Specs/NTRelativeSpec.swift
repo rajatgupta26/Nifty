@@ -12,20 +12,19 @@ import AsyncDisplayKit
 
 
 //NTLOOK: Find a better way to map these enums to AsyncDisplayKit's. Goes for all of the enums.
-//NTLOOK: typealias is the irght approach I think. Evaluate this approach further. Trying to use typealias NTControlNode onwards.
-@objc public enum NTRelativeSpecPosition: UInt {
-    case none   = 0
-    case start  = 1
-    case center = 2
-    case end    = 3
-}
+//NTLOOK: typealias is the right approach I think. Evaluate this approach further. Trying to use typealias NTControlNode onwards.
+public typealias NTRelativeSpecPosition = ASRelativeLayoutSpecPosition.RawValue
+public let NTRelativeSpecPositionNone = ASRelativeLayoutSpecPosition.none.rawValue
+public let NTRelativeSpecPositionStart = ASRelativeLayoutSpecPosition.start.rawValue
+public let NTRelativeSpecPositionCenter = ASRelativeLayoutSpecPosition.center.rawValue
+public let NTRelativeSpecPositionEnd = ASRelativeLayoutSpecPosition.end.rawValue
 
-@objc public enum NTRelativeSpecSizingOption: UInt {
-    case `default`  = 0
-    case minWidth   = 1
-    case minHeight  = 2
-    case minSize    = 3
-}
+public typealias NTRelativeSpecSizingOption = ASRelativeLayoutSpecSizingOption.RawValue
+public let NTRelativeSpecSizingOptionDefault: NTRelativeSpecSizingOption = 0
+public let NTRelativeSpecSizingOptionMinWidth: NTRelativeSpecSizingOption = ASRelativeLayoutSpecSizingOption.minimumWidth.rawValue
+public let NTRelativeSpecSizingOptionMinHeight: NTRelativeSpecSizingOption = ASRelativeLayoutSpecSizingOption.minimumHeight.rawValue
+public let NTRelativeSpecSizingOptionMinSize: NTRelativeSpecSizingOption = ASRelativeLayoutSpecSizingOption.minimumSize.rawValue
+
 
 
 
@@ -44,21 +43,21 @@ import AsyncDisplayKit
 
 @objc public class NTRelativeSpec: NTSpec {
     
-    private var _horizontalPosition: NTRelativeSpecPosition = .none
+    private var _horizontalPosition: NTRelativeSpecPosition = NTRelativeSpecPositionNone
     public var horizontalPosition: NTRelativeSpecPosition {
         get {
             return _horizontalPosition
         }
     }
     
-    private var _verticalPosition: NTRelativeSpecPosition = .none
+    private var _verticalPosition: NTRelativeSpecPosition = NTRelativeSpecPositionNone
     public var verticalPosition: NTRelativeSpecPosition {
         get {
             return _verticalPosition
         }
     }
     
-    private var _sizing: NTRelativeSpecSizingOption = .default
+    private var _sizing: NTRelativeSpecSizingOption = NTRelativeSpecSizingOptionDefault
     public var sizing: NTRelativeSpecSizingOption {
         get {
             return _sizing
@@ -112,15 +111,15 @@ extension NTRelativeSpec {
     }
     
     public override static func constantsToExport() -> [String: Any]? {
-        let constantsToExport: [String: Any] = [NTSpecConsts.Relative.position: [NTSpecConsts.Relative.Position.none.rawValue: NTRelativeSpecPosition.none.rawValue,
-                                                                                 NTSpecConsts.Relative.Position.start.rawValue: NTRelativeSpecPosition.start.rawValue,
-                                                                                 NTSpecConsts.Relative.Position.center.rawValue: NTRelativeSpecPosition.center.rawValue,
-                                                                                 NTSpecConsts.Relative.Position.end.rawValue: NTRelativeSpecPosition.end.rawValue],
+        let constantsToExport: [String: Any] = [NTSpecConsts.Relative.position: [NTSpecConsts.Relative.Position.none.rawValue: NTRelativeSpecPositionNone,
+                                                                                 NTSpecConsts.Relative.Position.start.rawValue: NTRelativeSpecPositionStart,
+                                                                                 NTSpecConsts.Relative.Position.center.rawValue: NTRelativeSpecPositionCenter,
+                                                                                 NTSpecConsts.Relative.Position.end.rawValue: NTRelativeSpecPositionEnd],
                                                 
-                                                NTSpecConsts.Relative.sizingOption: [NTSpecConsts.Relative.SizingOption.default.rawValue: NTRelativeSpecSizingOption.default.rawValue,
-                                                                                     NTSpecConsts.Relative.SizingOption.minHeight.rawValue: NTRelativeSpecSizingOption.minHeight.rawValue,
-                                                                                     NTSpecConsts.Relative.SizingOption.minWidth.rawValue: NTRelativeSpecSizingOption.minWidth.rawValue,
-                                                                                     NTSpecConsts.Relative.SizingOption.minSize.rawValue: NTRelativeSpecSizingOption.minSize.rawValue]]
+                                                NTSpecConsts.Relative.sizingOption: [NTSpecConsts.Relative.SizingOption.default.rawValue: NTRelativeSpecSizingOptionDefault,
+                                                                                     NTSpecConsts.Relative.SizingOption.minHeight.rawValue: NTRelativeSpecSizingOptionMinHeight,
+                                                                                     NTSpecConsts.Relative.SizingOption.minWidth.rawValue: NTRelativeSpecSizingOptionMinWidth,
+                                                                                     NTSpecConsts.Relative.SizingOption.minSize.rawValue: NTRelativeSpecSizingOptionMinSize]]
         return constantsToExport
     }
 }

@@ -11,81 +11,73 @@ import JavaScriptCore
 import AsyncDisplayKit
 
 //MARK: Defines
-@objc public enum NTStackDirection: UInt {
-    case vertical   = 0
-    case horizontal = 1
-}
+public typealias NTStackDirection = ASStackLayoutDirection.RawValue
+public let NTStackDirectionVertical = ASStackLayoutDirection.vertical.rawValue
+public let NTStackDirectionHorizontal = ASStackLayoutDirection.horizontal.rawValue
 
 
-@objc public enum NTStackJustifyContent: UInt {
-    case start          = 0
-    case center         = 1
-    case end            = 2
-    case spaceBetween   = 3
-    case spaceAround    = 4
-}
+public typealias NTStackJustifyContent = ASStackLayoutJustifyContent.RawValue
+public let NTStackJustifyContentStart = ASStackLayoutJustifyContent.start.rawValue
+public let NTStackJustifyContentCenter = ASStackLayoutJustifyContent.center.rawValue
+public let NTStackJustifyContentEnd = ASStackLayoutJustifyContent.end.rawValue
+public let NTStackJustifyContentSpaceBetween = ASStackLayoutJustifyContent.spaceBetween.rawValue
+public let NTStackJustifyContentSpaceAround = ASStackLayoutJustifyContent.spaceAround.rawValue
 
 
-@objc public enum NTStackAlignItems: UInt {
-    case start          = 0
-    case end            = 1
-    case center         = 2
-    case stretch        = 3
-    case baselineFirst  = 4
-    case baselineLast   = 5
-    case notSet         = 6
-}
+public typealias NTStackAlignItems = ASStackLayoutAlignItems.RawValue
+public let NTStackAlignItemsStart = ASStackLayoutAlignItems.start.rawValue
+public let NTStackAlignItemsEnd = ASStackLayoutAlignItems.end.rawValue
+public let NTStackAlignItemsCenter = ASStackLayoutAlignItems.center.rawValue
+public let NTStackAlignItemsStretch = ASStackLayoutAlignItems.stretch.rawValue
+public let NTStackAlignItemsBaselineFirst = ASStackLayoutAlignItems.baselineFirst.rawValue
+public let NTStackAlignItemsBaselineLast = ASStackLayoutAlignItems.baselineLast.rawValue
+public let NTStackAlignItemsNotset = ASStackLayoutAlignItems.notSet.rawValue
 
 
-@objc public enum NTStackAlignSelf: UInt {
-    case auto           = 0
-    case start          = 1
-    case end            = 2
-    case center         = 3
-    case stretch        = 4
-}
+public typealias NTStackAlignSelf = ASStackLayoutAlignSelf.RawValue
+public let NTStackAlignSelfAuto = ASStackLayoutAlignSelf.auto.rawValue
+public let NTStackAlignSelfStart = ASStackLayoutAlignSelf.start.rawValue
+public let NTStackAlignSelfEnd = ASStackLayoutAlignSelf.end.rawValue
+public let NTStackAlignSelfCenter = ASStackLayoutAlignSelf.center.rawValue
+public let NTStackAlignSelfStretch = ASStackLayoutAlignSelf.stretch.rawValue
 
 
-@objc public enum NTStackFlexWrap: UInt {
-    case noWrap = 0
-    case wrap   = 1
-}
+public typealias NTStackFlexWrap = ASStackLayoutFlexWrap.RawValue
+public let NTStackFlexWrapNoWrap = ASStackLayoutFlexWrap.noWrap.rawValue
+public let NTStackFlexWrapWrap = ASStackLayoutFlexWrap.wrap.rawValue
 
 
-@objc public enum NTStackAlignContent: UInt {
-    case start          = 0
-    case center         = 1
-    case end            = 2
-    case spaceBetween   = 3
-    case spaceAround    = 4
-    case stretch        = 5
-}
+public typealias NTStackAlignContent = ASStackLayoutAlignContent.RawValue
+public let NTStackAlignContentStart = ASStackLayoutAlignContent.start.rawValue
+public let NTStackAlignContentCenter = ASStackLayoutAlignContent.center.rawValue
+public let NTStackAlignContentEnd = ASStackLayoutAlignContent.end.rawValue
+public let NTStackAlignContentSpaceBetween = ASStackLayoutAlignContent.spaceBetween.rawValue
+public let NTStackAlignContentSpaceAround = ASStackLayoutAlignContent.spaceAround.rawValue
+public let NTStackAlignContentStretch = ASStackLayoutAlignContent.stretch.rawValue
 
 
-@objc public enum NTHorizontalAlignment: UInt {
-    case none   = 0
-    case left   = 1
-    case middle = 2
-    case right  = 3
-}
+public typealias NTHorizontalAlignment = ASHorizontalAlignment.RawValue
+public let NTHorizontalAlignmentNone = ASHorizontalAlignment.none.rawValue
+public let NTHorizontalAlignmentLeft = ASHorizontalAlignment.left.rawValue
+public let NTHorizontalAlignmentMiddle = ASHorizontalAlignment.middle.rawValue
+public let NTHorizontalAlignmentRight = ASHorizontalAlignment.right.rawValue
 
 
-@objc public enum NTVerticalAlignment: UInt {
-    case none   = 0
-    case top    = 1
-    case center = 2
-    case bottom = 3
-}
+public typealias NTVerticalAlignment = ASVerticalAlignment.RawValue
+public let NTVerticalAlignmentNone = ASVerticalAlignment.none.rawValue
+public let NTVerticalAlignmentTop = ASVerticalAlignment.top.rawValue
+public let NTVerticalAlignmentCenter = ASVerticalAlignment.center.rawValue
+public let NTVerticalAlignmentBottom = ASVerticalAlignment.bottom.rawValue
 
 
-fileprivate let defaultDirection: NTStackDirection = .vertical
-fileprivate let defaultJustification: NTStackJustifyContent = .start
-fileprivate let defaultAlignItems: NTStackAlignItems = .start
-fileprivate let defaultFlexWrap: NTStackFlexWrap = .noWrap
-fileprivate let defaultAlignContent: NTStackAlignContent = .start
+fileprivate let defaultDirection: NTStackDirection = NTStackDirectionVertical
+fileprivate let defaultJustification: NTStackJustifyContent = NTStackJustifyContentStart
+fileprivate let defaultAlignItems: NTStackAlignItems = NTStackAlignItemsStart
+fileprivate let defaultFlexWrap: NTStackFlexWrap = NTStackFlexWrapNoWrap
+fileprivate let defaultAlignContent: NTStackAlignContent = NTStackAlignContentStart
 fileprivate let defaultSpacing: CGFloat = 0.0
-fileprivate let defaultHAlignment: NTHorizontalAlignment = .none
-fileprivate let defaultVAlignment: NTVerticalAlignment = .none
+fileprivate let defaultHAlignment: NTHorizontalAlignment = NTHorizontalAlignmentNone
+fileprivate let defaultVAlignment: NTVerticalAlignment = NTVerticalAlignmentNone
 
 
 
@@ -152,12 +144,12 @@ fileprivate let defaultVAlignment: NTVerticalAlignment = .none
 extension NTStackSpec: NTStackSpecProtocol {
     public static func createWithOptionsAndChildren(_ options: [String: Any], _ children: [NTLayoutElement]) -> NTSpec {
         
-        let direction = NTStackDirection(rawValue: options[NTSpecConsts.Stack.direction] as? UInt ?? defaultDirection.rawValue) ?? defaultDirection
+        let direction = options[NTSpecConsts.Stack.direction] as? NTStackDirection ?? defaultDirection
         let spacing: CGFloat = (options[NTSpecConsts.Stack.spacing] as? CGFloat) ?? defaultSpacing
-        let justifyContent = NTStackJustifyContent(rawValue:options[NTSpecConsts.Stack.justifyContent]  as? UInt ?? defaultJustification.rawValue) ?? defaultJustification
-        let alignItems = NTStackAlignItems(rawValue: options[NTSpecConsts.Stack.alignItems] as? UInt ?? defaultAlignItems.rawValue) ?? defaultAlignItems
-        let flexWrap = NTStackFlexWrap(rawValue: options[NTSpecConsts.Stack.flexWrap] as? UInt ?? defaultFlexWrap.rawValue) ?? defaultFlexWrap
-        let alignContent = NTStackAlignContent(rawValue: options[NTSpecConsts.Stack.alignContent] as? UInt ?? defaultAlignContent.rawValue) ?? defaultAlignContent
+        let justifyContent = options[NTSpecConsts.Stack.justifyContent]  as? NTStackJustifyContent ?? defaultJustification
+        let alignItems = options[NTSpecConsts.Stack.alignItems] as? NTStackAlignItems ?? defaultAlignItems
+        let flexWrap = options[NTSpecConsts.Stack.flexWrap] as? NTStackFlexWrap ?? defaultFlexWrap
+        let alignContent = options[NTSpecConsts.Stack.alignContent] as? NTStackAlignContent ?? defaultAlignContent
         
         return NTStackSpec(direction: direction,
                            spacing: spacing,
@@ -180,48 +172,48 @@ extension NTStackSpec {
     }
     
     public override static func constantsToExport() -> [String : Any]? {
-        let constants: [String: Any] = [NTSpecConsts.Stack.direction: [NTSpecConsts.Stack.Direction.horizontal.rawValue: NTStackDirection.horizontal.rawValue,
-                                                                       NTSpecConsts.Stack.Direction.vertical.rawValue: NTStackDirection.vertical.rawValue],
+        let constants: [String: Any] = [NTSpecConsts.Stack.direction: [NTSpecConsts.Stack.Direction.horizontal.rawValue: NTStackDirectionHorizontal,
+                                                                       NTSpecConsts.Stack.Direction.vertical.rawValue: NTStackDirectionVertical],
                                         
-                                        NTSpecConsts.Stack.justifyContent: [NTSpecConsts.Stack.JustifyContent.center.rawValue: NTStackJustifyContent.center.rawValue,
-                                                                            NTSpecConsts.Stack.JustifyContent.end.rawValue: NTStackJustifyContent.end.rawValue,
-                                                                            NTSpecConsts.Stack.JustifyContent.start.rawValue: NTStackJustifyContent.start.rawValue,
-                                                                            NTSpecConsts.Stack.JustifyContent.spaceBetween.rawValue: NTStackJustifyContent.spaceBetween.rawValue,
-                                                                            NTSpecConsts.Stack.JustifyContent.spaceAround.rawValue: NTStackJustifyContent.spaceAround.rawValue],
+                                        NTSpecConsts.Stack.justifyContent: [NTSpecConsts.Stack.JustifyContent.center.rawValue: NTStackJustifyContentCenter,
+                                                                            NTSpecConsts.Stack.JustifyContent.end.rawValue: NTStackJustifyContentEnd,
+                                                                            NTSpecConsts.Stack.JustifyContent.start.rawValue: NTStackJustifyContentStart,
+                                                                            NTSpecConsts.Stack.JustifyContent.spaceBetween.rawValue: NTStackJustifyContentSpaceBetween,
+                                                                            NTSpecConsts.Stack.JustifyContent.spaceAround.rawValue: NTStackJustifyContentSpaceAround],
                                         
-                                        NTSpecConsts.Stack.alignItems: [NTSpecConsts.Stack.AlignItems.baselineFirst.rawValue: NTStackAlignItems.baselineFirst.rawValue,
-                                                                        NTSpecConsts.Stack.AlignItems.baselineLast.rawValue: NTStackAlignItems.baselineLast.rawValue,
-                                                                        NTSpecConsts.Stack.AlignItems.center.rawValue:NTStackAlignItems.center.rawValue,
-                                                                        NTSpecConsts.Stack.AlignItems.end.rawValue: NTStackAlignItems.end.rawValue,
-                                                                        NTSpecConsts.Stack.AlignItems.notSet.rawValue: NTStackAlignItems.notSet.rawValue,
-                                                                        NTSpecConsts.Stack.AlignItems.start.rawValue: NTStackAlignItems.start.rawValue,
-                                                                        NTSpecConsts.Stack.AlignItems.stretch.rawValue: NTStackAlignItems.stretch.rawValue],
+                                        NTSpecConsts.Stack.alignItems: [NTSpecConsts.Stack.AlignItems.baselineFirst.rawValue: NTStackAlignItemsBaselineFirst,
+                                                                        NTSpecConsts.Stack.AlignItems.baselineLast.rawValue: NTStackAlignItemsBaselineLast,
+                                                                        NTSpecConsts.Stack.AlignItems.center.rawValue:NTStackAlignItemsCenter,
+                                                                        NTSpecConsts.Stack.AlignItems.end.rawValue: NTStackAlignItemsEnd,
+                                                                        NTSpecConsts.Stack.AlignItems.notSet.rawValue: NTStackAlignItemsNotset,
+                                                                        NTSpecConsts.Stack.AlignItems.start.rawValue: NTStackAlignItemsStart,
+                                                                        NTSpecConsts.Stack.AlignItems.stretch.rawValue: NTStackAlignItemsStretch],
                                         
-                                        NTSpecConsts.Stack.alignSelf: [NTSpecConsts.Stack.AlignSelf.auto.rawValue: NTStackAlignSelf.auto.rawValue,
-                                                                       NTSpecConsts.Stack.AlignSelf.center.rawValue: NTStackAlignSelf.center.rawValue,
-                                                                       NTSpecConsts.Stack.AlignSelf.end.rawValue: NTStackAlignSelf.end.rawValue,
-                                                                       NTSpecConsts.Stack.AlignSelf.start.rawValue: NTStackAlignSelf.start.rawValue,
-                                                                       NTSpecConsts.Stack.AlignSelf.stretch.rawValue: NTStackAlignSelf.stretch.rawValue],
+                                        NTSpecConsts.Stack.alignSelf: [NTSpecConsts.Stack.AlignSelf.auto.rawValue: NTStackAlignSelfAuto,
+                                                                       NTSpecConsts.Stack.AlignSelf.center.rawValue: NTStackAlignSelfCenter,
+                                                                       NTSpecConsts.Stack.AlignSelf.end.rawValue: NTStackAlignSelfEnd,
+                                                                       NTSpecConsts.Stack.AlignSelf.start.rawValue: NTStackAlignSelfStart,
+                                                                       NTSpecConsts.Stack.AlignSelf.stretch.rawValue: NTStackAlignSelfStretch],
                                         
-                                        NTSpecConsts.Stack.flexWrap: [NTSpecConsts.Stack.FlexWrap.noWrap.rawValue: NTStackFlexWrap.noWrap.rawValue,
-                                                                      NTSpecConsts.Stack.FlexWrap.wrap.rawValue: NTStackFlexWrap.wrap.rawValue],
+                                        NTSpecConsts.Stack.flexWrap: [NTSpecConsts.Stack.FlexWrap.noWrap.rawValue: NTStackFlexWrapNoWrap,
+                                                                      NTSpecConsts.Stack.FlexWrap.wrap.rawValue: NTStackFlexWrapWrap],
                                         
-                                        NTSpecConsts.Stack.alignContent: [NTSpecConsts.Stack.AlignContent.center.rawValue: NTStackAlignContent.center.rawValue,
-                                                                          NTSpecConsts.Stack.AlignContent.end.rawValue: NTStackAlignContent.end.rawValue,
-                                                                          NTSpecConsts.Stack.AlignContent.spaceAround.rawValue: NTStackAlignContent.spaceAround.rawValue,
-                                                                          NTSpecConsts.Stack.AlignContent.spaceBetween.rawValue: NTStackAlignContent.spaceBetween.rawValue,
-                                                                          NTSpecConsts.Stack.AlignContent.start.rawValue: NTStackAlignContent.start.rawValue,
-                                                                          NTSpecConsts.Stack.AlignContent.stretch.rawValue: NTStackAlignContent.stretch.rawValue],
+                                        NTSpecConsts.Stack.alignContent: [NTSpecConsts.Stack.AlignContent.center.rawValue: NTStackAlignContentCenter,
+                                                                          NTSpecConsts.Stack.AlignContent.end.rawValue: NTStackAlignContentEnd,
+                                                                          NTSpecConsts.Stack.AlignContent.spaceAround.rawValue: NTStackAlignContentSpaceAround,
+                                                                          NTSpecConsts.Stack.AlignContent.spaceBetween.rawValue: NTStackAlignContentSpaceBetween,
+                                                                          NTSpecConsts.Stack.AlignContent.start.rawValue: NTStackAlignContentStart,
+                                                                          NTSpecConsts.Stack.AlignContent.stretch.rawValue: NTStackAlignContentStretch],
                                         
-                                        NTSpecConsts.Stack.horizontalAlignment: [NTSpecConsts.Stack.HorizontalAlignment.left.rawValue: NTHorizontalAlignment.left.rawValue,
-                                                                                 NTSpecConsts.Stack.HorizontalAlignment.middle.rawValue: NTHorizontalAlignment.middle.rawValue,
-                                                                                 NTSpecConsts.Stack.HorizontalAlignment.none.rawValue: NTHorizontalAlignment.none.rawValue,
-                                                                                 NTSpecConsts.Stack.HorizontalAlignment.right.rawValue: NTHorizontalAlignment.right.rawValue],
+                                        NTSpecConsts.Stack.horizontalAlignment: [NTSpecConsts.Stack.HorizontalAlignment.left.rawValue: NTHorizontalAlignmentLeft,
+                                                                                 NTSpecConsts.Stack.HorizontalAlignment.middle.rawValue: NTHorizontalAlignmentMiddle,
+                                                                                 NTSpecConsts.Stack.HorizontalAlignment.none.rawValue: NTHorizontalAlignmentNone,
+                                                                                 NTSpecConsts.Stack.HorizontalAlignment.right.rawValue: NTHorizontalAlignmentRight],
                                         
-                                        NTSpecConsts.Stack.verticalAlignment: [NTSpecConsts.Stack.VerticalAlignment.none.rawValue: NTVerticalAlignment.none.rawValue,
-                                                                                 NTSpecConsts.Stack.VerticalAlignment.top.rawValue: NTVerticalAlignment.top.rawValue,
-                                                                                 NTSpecConsts.Stack.VerticalAlignment.bottom.rawValue: NTVerticalAlignment.bottom.rawValue,
-                                                                                 NTSpecConsts.Stack.VerticalAlignment.center.rawValue: NTVerticalAlignment.center.rawValue],
+                                        NTSpecConsts.Stack.verticalAlignment: [NTSpecConsts.Stack.VerticalAlignment.none.rawValue: NTVerticalAlignmentNone,
+                                                                                 NTSpecConsts.Stack.VerticalAlignment.top.rawValue: NTVerticalAlignmentTop,
+                                                                                 NTSpecConsts.Stack.VerticalAlignment.bottom.rawValue: NTVerticalAlignmentBottom,
+                                                                                 NTSpecConsts.Stack.VerticalAlignment.center.rawValue: NTVerticalAlignmentCenter],
                                         
                                         NTSpecConsts.Stack.options: ["direction": NTSpecConsts.Stack.direction,
                                                                      "justifyContent": NTSpecConsts.Stack.justifyContent,

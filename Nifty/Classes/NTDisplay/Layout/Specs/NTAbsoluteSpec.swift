@@ -10,10 +10,11 @@ import Foundation
 import JavaScriptCore
 import AsyncDisplayKit
 
-@objc public enum NTAbsoluteSpecSizing: Int {
-    case `default` = 0
-    case sizeToFit = 1
-}
+public typealias NTAbsoluteSpecSizing = ASAbsoluteLayoutSpecSizing.RawValue
+public let NTAbsoluteSpecSizingDefault = ASAbsoluteLayoutSpecSizing.default.rawValue
+public let NTAbsoluteSpecSizingSizeToFit = ASAbsoluteLayoutSpecSizing.sizeToFit.rawValue
+
+
 
 @objc public protocol NTAbsoluteSpecProtocol: JSExport, NTSpecProtocol {
     
@@ -29,7 +30,7 @@ import AsyncDisplayKit
 
 @objc public class NTAbsoluteSpec: NTSpec {
     
-    private var _sizing: NTAbsoluteSpecSizing = .default
+    private var _sizing: NTAbsoluteSpecSizing = NTAbsoluteSpecSizingDefault
     public var sizing: NTAbsoluteSpecSizing {
         get {
             return _sizing
@@ -44,7 +45,7 @@ import AsyncDisplayKit
     
     //MARK: Convenience initializers
     convenience init(children: [NTLayoutElement]) {
-        self.init(sizing: .default, children: children)
+        self.init(sizing: NTAbsoluteSpecSizingDefault, children: children)
     }
     
     convenience init(sizing: NTAbsoluteSpecSizing, children: [NTLayoutElement]) {
@@ -62,7 +63,7 @@ import AsyncDisplayKit
 extension NTAbsoluteSpec: NTAbsoluteSpecProtocol {
     
     public static func createWithChildren(_ children: [NTLayoutElement]) -> NTAbsoluteSpec {
-        return NTAbsoluteSpec(sizing: .default, children: children)
+        return NTAbsoluteSpec(sizing: NTAbsoluteSpecSizingDefault, children: children)
     }
     
     public static func createWithSizingAndChildren(_ sizing: NTAbsoluteSpecSizing,_ children: [NTLayoutElement]) -> NTAbsoluteSpec {
@@ -79,8 +80,8 @@ extension NTAbsoluteSpec {
         return NTSpecConsts.Absolute.name
     }
     public override static func constantsToExport() -> [String: Any]? {
-        let constantsMap: [String: Any] = [NTSpecConsts.Absolute.sizing: [NTSpecConsts.Absolute.Sizing.default.rawValue: NTAbsoluteSpecSizing.default.rawValue,
-                                                                          NTSpecConsts.Absolute.Sizing.sizeToFit.rawValue: NTAbsoluteSpecSizing.sizeToFit.rawValue]]
+        let constantsMap: [String: Any] = [NTSpecConsts.Absolute.sizing: [NTSpecConsts.Absolute.Sizing.default.rawValue: NTAbsoluteSpecSizingDefault,
+                                                                          NTSpecConsts.Absolute.Sizing.sizeToFit.rawValue: NTAbsoluteSpecSizingSizeToFit]]
         return constantsMap
     }
 }

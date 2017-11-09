@@ -14,30 +14,30 @@ import JavaScriptCore
     static func withWhite(_ white: CGFloat, _ alpha: CGFloat) -> UIColor
     static func withHSB(_ hue: CGFloat, _ saturation: CGFloat, _ brightness: CGFloat, _ alpha: CGFloat) -> UIColor
     static func withRGB(_ red: CGFloat, _ green: CGFloat, _ blue: CGFloat, _ alpha: CGFloat) -> UIColor
-    static func randomColor() -> UIColor!
+    static func createRandom() -> UIColor!
     static func withRGBHex(_ hex: UInt32) -> UIColor
     static func withHex(_ hexString: String) -> UIColor
     static func withName(_ cssName: String) -> UIColor
     
-    static var blackColor: UIColor {get}
-    static var darkGrayColor: UIColor {get}
-    static var lightGrayColor: UIColor {get}
-    static var whiteColor: UIColor {get}
-    static var grayColor: UIColor {get}
-    static var redColor: UIColor {get}
-    static var greenColor: UIColor {get}
-    static var blueColor: UIColor {get}
-    static var cyanColor: UIColor {get}
-    static var yellowColor: UIColor {get}
-    static var magentaColor: UIColor {get}
-    static var orangeColor: UIColor {get}
-    static var purpleColor: UIColor {get}
-    static var brownColor: UIColor {get}
-    static var clearColor: UIColor {get}
+    static func createBlack() -> UIColor
+    static func createDarkGray() -> UIColor
+    static func createLightGray() -> UIColor
+    static func createWhite() -> UIColor
+    static func createGray() -> UIColor
+    static func createRed() -> UIColor
+    static func createGreen() -> UIColor
+    static func createBlue() -> UIColor
+    static func createCyan() -> UIColor
+    static func createYellow() -> UIColor
+    static func createMagenta() -> UIColor
+    static func createOrange() -> UIColor
+    static func createPurple() -> UIColor
+    static func createBrown() -> UIColor
+    static func createClear() -> UIColor
     
-    func colorWithAlphaComponent(_ alpha: CGFloat) -> UIColor
+    func copyWithAlphaComponent(_ alpha: CGFloat) -> UIColor
     
-    func colorByLuminanceMapping() -> UIColor!
+    func copyByLuminanceMapping() -> UIColor!
     
     func byMultiplyingRGB(_ red: CGFloat, _ green: CGFloat, _ blue: CGFloat, _ alpha: CGFloat) -> UIColor
     func byAddingRGB(_ red: CGFloat, _ green: CGFloat, _ blue: CGFloat, _ alpha: CGFloat) -> UIColor
@@ -54,8 +54,8 @@ import JavaScriptCore
     func byLighteningToColor(_ color: UIColor) -> UIColor
     func byDarkeningToColor(_ color: UIColor) -> UIColor
 
-    func contrastingColor() -> UIColor!
-    func complementaryColor() -> UIColor!
+    static func contrastingTo(_ color: UIColor) -> UIColor!
+    static func complementaryTo(_ color: UIColor) -> UIColor!
     func triadics() -> [UIColor]?
     
     var canProvideRGBComponents: Bool {get}
@@ -76,7 +76,88 @@ import JavaScriptCore
 }
 
 extension UIColor: UIColorExports {
-        
+    
+    public static func contrastingTo(_ color: UIColor) -> UIColor! {
+        return color.contrasting()
+    }
+    
+    public static func complementaryTo(_ color: UIColor) -> UIColor! {
+        return color.complementary()
+    }
+    
+    public func copyWithAlphaComponent(_ alpha: CGFloat) -> UIColor {
+        return self.withAlphaComponent(alpha)
+    }
+    
+    public func copyByLuminanceMapping() -> UIColor! {
+        return self.byLuminanceMapping()
+    }
+    
+    
+    public static func createRandom() -> UIColor! {
+        return UIColor.random()
+    }
+    
+    public static func createBlack() -> UIColor {
+        return UIColor.black
+    }
+    
+    public static func createDarkGray() -> UIColor {
+        return UIColor.darkGray
+    }
+    
+    public static func createLightGray() -> UIColor {
+        return UIColor.lightGray
+    }
+    
+    public static func createWhite() -> UIColor {
+        return UIColor.white
+    }
+    
+    public static func createGray() -> UIColor {
+        return UIColor.gray
+    }
+    
+    public static func createRed() -> UIColor {
+        return UIColor.red
+    }
+    
+    public static func createGreen() -> UIColor {
+        return UIColor.green
+    }
+    
+    public static func createBlue() -> UIColor {
+        return UIColor.blue
+    }
+    
+    public static func createCyan() -> UIColor {
+        return UIColor.cyan
+    }
+    
+    public static func createYellow() -> UIColor {
+        return UIColor.yellow
+    }
+    
+    public static func createMagenta() -> UIColor {
+        return UIColor.magenta
+    }
+    
+    public static func createOrange() -> UIColor {
+        return UIColor.orange
+    }
+    
+    public static func createPurple() -> UIColor {
+        return UIColor.purple
+    }
+    
+    public static func createBrown() -> UIColor {
+        return UIColor.brown
+    }
+    
+    public static func createClear() -> UIColor {
+        return UIColor.clear
+    }
+    
     public var closestName: String {
         return self.closestColorName()
     }

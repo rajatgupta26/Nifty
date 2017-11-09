@@ -117,7 +117,7 @@ import AsyncDisplayKit
                         }
                         
                         if asChildren.count > 0 {
-                            return ASAbsoluteLayoutSpec(sizing: ASAbsoluteLayoutSpecSizing(rawValue: ntAbsSpec.sizing.rawValue) ?? .default, children: asChildren)
+                            return ASAbsoluteLayoutSpec(sizing: ASAbsoluteLayoutSpecSizing(rawValue: ntAbsSpec.sizing) ?? .default, children: asChildren)
                         }
                     } else {
                         return ASAbsoluteLayoutSpec()
@@ -135,8 +135,8 @@ import AsyncDisplayKit
             case .center:
                 if let ntCenterSpec = ntSpec as? NTCenterSpec, let ntChild = ntSpec.child {
                     if let _child = asLayoutElement(from: ntChild) {
-                        return ASCenterLayoutSpec(centeringOptions: ASCenterLayoutSpecCenteringOptions(rawValue: ntCenterSpec.centeringOption.rawValue),
-                                                  sizingOptions: ASCenterLayoutSpecSizingOptions(rawValue: ntCenterSpec.sizingOption.rawValue),
+                        return ASCenterLayoutSpec(centeringOptions: ASCenterLayoutSpecCenteringOptions(rawValue: ntCenterSpec.centeringOption),
+                                                  sizingOptions: ASCenterLayoutSpecSizingOptions(rawValue: ntCenterSpec.sizingOption),
                                                   child: _child)
                     }
                 }
@@ -182,9 +182,9 @@ import AsyncDisplayKit
             case .relative:
                 if let ntRelativeSpec = ntSpec as? NTRelativeSpec, let ntChild = ntSpec.child {
                     if let _child = asLayoutElement(from: ntChild) {
-                        return ASRelativeLayoutSpec(horizontalPosition: ASRelativeLayoutSpecPosition(rawValue: ntRelativeSpec.horizontalPosition.rawValue) ?? .none,
-                                                    verticalPosition: ASRelativeLayoutSpecPosition(rawValue: ntRelativeSpec.verticalPosition.rawValue) ?? .none,
-                                                    sizingOption: ASRelativeLayoutSpecSizingOption(rawValue: ntRelativeSpec.sizing.rawValue),
+                        return ASRelativeLayoutSpec(horizontalPosition: ASRelativeLayoutSpecPosition(rawValue: ntRelativeSpec.horizontalPosition) ?? .none,
+                                                    verticalPosition: ASRelativeLayoutSpecPosition(rawValue: ntRelativeSpec.verticalPosition) ?? .none,
+                                                    sizingOption: ASRelativeLayoutSpecSizingOption(rawValue: ntRelativeSpec.sizing),
                                                     child: _child)
                     }
                 }
@@ -213,16 +213,16 @@ import AsyncDisplayKit
                             let verticalAlignment = ntStackSpec.verticalAlignment
                             let isConcurrent = ntStackSpec.isConcurrent
 
-                            let spec = ASStackLayoutSpec(direction: ASStackLayoutDirection(rawValue: direction.rawValue) ?? .vertical,
+                            let spec = ASStackLayoutSpec(direction: ASStackLayoutDirection(rawValue: direction) ?? .vertical,
                                                          spacing: spacing,
-                                                         justifyContent: ASStackLayoutJustifyContent(rawValue: justifyContent.rawValue) ?? .start,
-                                                         alignItems: ASStackLayoutAlignItems(rawValue: alignItems.rawValue) ?? .start,
-                                                         flexWrap: ASStackLayoutFlexWrap(rawValue: flexWrap.rawValue) ?? .noWrap,
-                                                         alignContent: ASStackLayoutAlignContent(rawValue: alignContent.rawValue) ?? .start,
+                                                         justifyContent: ASStackLayoutJustifyContent(rawValue: justifyContent) ?? .start,
+                                                         alignItems: ASStackLayoutAlignItems(rawValue: alignItems) ?? .start,
+                                                         flexWrap: ASStackLayoutFlexWrap(rawValue: flexWrap) ?? .noWrap,
+                                                         alignContent: ASStackLayoutAlignContent(rawValue: alignContent) ?? .start,
                                                          children: asChildren)
                             
-                            spec.horizontalAlignment = ASHorizontalAlignment(rawValue: horizontalAlignment.rawValue) ?? .none
-                            spec.verticalAlignment = ASVerticalAlignment(rawValue: verticalAlignment.rawValue) ?? .none
+                            spec.horizontalAlignment = ASHorizontalAlignment(rawValue: horizontalAlignment) ?? .none
+                            spec.verticalAlignment = ASVerticalAlignment(rawValue: verticalAlignment) ?? .none
                             spec.isConcurrent = isConcurrent
                             
                             return spec
