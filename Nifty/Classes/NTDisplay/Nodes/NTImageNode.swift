@@ -88,11 +88,10 @@ import AsyncDisplayKit
             }
         }
     }
-}
-
-
-extension NTImageNode {
     
+    
+    //MARK:-
+    //MARK:NTModule
     public override static func moduleName() -> String {
         return NTNodeConsts.Image.name
     }
@@ -101,6 +100,9 @@ extension NTImageNode {
         return nil
     }
 }
+
+
+
 
 
 

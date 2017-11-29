@@ -68,6 +68,25 @@ public let NTCenterSpecSizingOptionDefault: NTCenterSpecCenteringOption = 0
         self.child = child
         self.children = [child]
     }
+    
+    
+    //MARK:-
+    //MARK:NTModule
+    public override static func moduleName() -> String {
+        return NTSpecConsts.Center.name
+    }
+    public override static func constantsToExport() -> [String: Any]? {
+        let constantsMap: [String: Any] = [NTSpecConsts.Center.centeringOption: [NTSpecConsts.Center.CenteringOption.none.rawValue: NTCenterSpecCenteringOptionNone,
+                                                                                 NTSpecConsts.Center.CenteringOption.x.rawValue: NTCenterSpecCenteringOptionX,
+                                                                                 NTSpecConsts.Center.CenteringOption.y.rawValue: NTCenterSpecCenteringOptionY,
+                                                                                 NTSpecConsts.Center.CenteringOption.xy.rawValue: NTCenterSpecCenteringOptionXY],
+                                           
+                                           NTSpecConsts.Center.sizingOption: [NTSpecConsts.Center.SizingOption.default.rawValue: NTCenterSpecSizingOptionDefault,
+                                                                              NTSpecConsts.Center.SizingOption.minX.rawValue: NTCenterSpecSizingOptionMinX,
+                                                                              NTSpecConsts.Center.SizingOption.minY.rawValue: NTCenterSpecSizingOptionMinY,
+                                                                              NTSpecConsts.Center.SizingOption.minXY.rawValue: NTCenterSpecSizingOptionMinXY]]
+        return constantsMap
+    }
 }
 
 
@@ -86,24 +105,6 @@ extension NTCenterSpec: NTCenterSpecProtocol {
 
 
 
-extension NTCenterSpec {
-    
-    public override static func moduleName() -> String {
-        return NTSpecConsts.Center.name
-    }
-    public override static func constantsToExport() -> [String: Any]? {
-        let constantsMap: [String: Any] = [NTSpecConsts.Center.centeringOption: [NTSpecConsts.Center.CenteringOption.none.rawValue: NTCenterSpecCenteringOptionNone,
-                                                                                 NTSpecConsts.Center.CenteringOption.x.rawValue: NTCenterSpecCenteringOptionX,
-                                                                                 NTSpecConsts.Center.CenteringOption.y.rawValue: NTCenterSpecCenteringOptionY,
-                                                                                 NTSpecConsts.Center.CenteringOption.xy.rawValue: NTCenterSpecCenteringOptionXY],
-                                           
-                                           NTSpecConsts.Center.sizingOption: [NTSpecConsts.Center.SizingOption.default.rawValue: NTCenterSpecSizingOptionDefault,
-                                                                              NTSpecConsts.Center.SizingOption.minX.rawValue: NTCenterSpecSizingOptionMinX,
-                                                                              NTSpecConsts.Center.SizingOption.minY.rawValue: NTCenterSpecSizingOptionMinY,
-                                                                              NTSpecConsts.Center.SizingOption.minXY.rawValue: NTCenterSpecSizingOptionMinXY]]
-        return constantsMap
-    }
-}
 
 
 

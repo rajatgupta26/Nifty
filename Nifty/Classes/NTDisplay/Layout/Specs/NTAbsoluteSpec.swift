@@ -56,6 +56,16 @@ public let NTAbsoluteSpecSizingSizeToFit = ASAbsoluteLayoutSpecSizing.sizeToFit.
     }
     
 
+    //MARK:-
+    //MARK:NTModule
+    public override static func moduleName() -> String {
+        return NTSpecConsts.Absolute.name
+    }
+    public override static func constantsToExport() -> [String: Any]? {
+        let constantsMap: [String: Any] = [NTSpecConsts.Absolute.sizing: [NTSpecConsts.Absolute.Sizing.default.rawValue: NTAbsoluteSpecSizingDefault,
+                                                                          NTSpecConsts.Absolute.Sizing.sizeToFit.rawValue: NTAbsoluteSpecSizingSizeToFit]]
+        return constantsMap
+    }
 }
 
 
@@ -74,17 +84,6 @@ extension NTAbsoluteSpec: NTAbsoluteSpecProtocol {
 
 
 
-extension NTAbsoluteSpec {
-    
-    public override static func moduleName() -> String {
-        return NTSpecConsts.Absolute.name
-    }
-    public override static func constantsToExport() -> [String: Any]? {
-        let constantsMap: [String: Any] = [NTSpecConsts.Absolute.sizing: [NTSpecConsts.Absolute.Sizing.default.rawValue: NTAbsoluteSpecSizingDefault,
-                                                                          NTSpecConsts.Absolute.Sizing.sizeToFit.rawValue: NTAbsoluteSpecSizingSizeToFit]]
-        return constantsMap
-    }
-}
 
 
 

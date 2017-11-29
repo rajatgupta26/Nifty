@@ -62,6 +62,10 @@ public class NTDisplayNode: ASDisplayNode {
                 }
             }
         }
+        
+//        self.onDidLoad { (node) in
+//            node.setNeedsLayout()
+//        }
     }
     
     //NTLOOK: disable default initializers

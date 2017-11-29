@@ -83,6 +83,27 @@ public let NTRelativeSpecSizingOptionMinSize: NTRelativeSpecSizingOption = ASRel
     override public var specType: NTSpectype {
         return .relative
     }
+
+    
+    
+    //MARK:-
+    //MARK:NTModule
+    public override static func moduleName() -> String {
+        return NTSpecConsts.Relative.name
+    }
+    
+    public override static func constantsToExport() -> [String: Any]? {
+        let constantsToExport: [String: Any] = [NTSpecConsts.Relative.position: [NTSpecConsts.Relative.Position.none.rawValue: NTRelativeSpecPositionNone,
+                                                                                 NTSpecConsts.Relative.Position.start.rawValue: NTRelativeSpecPositionStart,
+                                                                                 NTSpecConsts.Relative.Position.center.rawValue: NTRelativeSpecPositionCenter,
+                                                                                 NTSpecConsts.Relative.Position.end.rawValue: NTRelativeSpecPositionEnd],
+                                                
+                                                NTSpecConsts.Relative.sizingOption: [NTSpecConsts.Relative.SizingOption.default.rawValue: NTRelativeSpecSizingOptionDefault,
+                                                                                     NTSpecConsts.Relative.SizingOption.minHeight.rawValue: NTRelativeSpecSizingOptionMinHeight,
+                                                                                     NTSpecConsts.Relative.SizingOption.minWidth.rawValue: NTRelativeSpecSizingOptionMinWidth,
+                                                                                     NTSpecConsts.Relative.SizingOption.minSize.rawValue: NTRelativeSpecSizingOptionMinSize]]
+        return constantsToExport
+    }
 }
 
 
@@ -104,25 +125,7 @@ extension NTRelativeSpec: NTRelativeSpecProtocol {
 
 
 
-extension NTRelativeSpec {
-    
-    public override static func moduleName() -> String {
-        return NTSpecConsts.Relative.name
-    }
-    
-    public override static func constantsToExport() -> [String: Any]? {
-        let constantsToExport: [String: Any] = [NTSpecConsts.Relative.position: [NTSpecConsts.Relative.Position.none.rawValue: NTRelativeSpecPositionNone,
-                                                                                 NTSpecConsts.Relative.Position.start.rawValue: NTRelativeSpecPositionStart,
-                                                                                 NTSpecConsts.Relative.Position.center.rawValue: NTRelativeSpecPositionCenter,
-                                                                                 NTSpecConsts.Relative.Position.end.rawValue: NTRelativeSpecPositionEnd],
-                                                
-                                                NTSpecConsts.Relative.sizingOption: [NTSpecConsts.Relative.SizingOption.default.rawValue: NTRelativeSpecSizingOptionDefault,
-                                                                                     NTSpecConsts.Relative.SizingOption.minHeight.rawValue: NTRelativeSpecSizingOptionMinHeight,
-                                                                                     NTSpecConsts.Relative.SizingOption.minWidth.rawValue: NTRelativeSpecSizingOptionMinWidth,
-                                                                                     NTSpecConsts.Relative.SizingOption.minSize.rawValue: NTRelativeSpecSizingOptionMinSize]]
-        return constantsToExport
-    }
-}
+
 
 
 

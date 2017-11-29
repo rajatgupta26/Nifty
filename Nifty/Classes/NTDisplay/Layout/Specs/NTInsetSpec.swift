@@ -57,12 +57,11 @@ import AsyncDisplayKit
             return .insets
         }
     }
-}
-
-
-
-extension NTInsetSpec {
     
+    
+    
+    //MARK:-
+    //MARK:NTModule
     public override static func moduleName() -> String {
         return NTSpecConsts.Inset.name
     }
@@ -70,5 +69,8 @@ extension NTInsetSpec {
         return nil
     }
 }
+
+
+
 
 

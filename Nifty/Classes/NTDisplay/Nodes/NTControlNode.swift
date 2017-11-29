@@ -212,12 +212,11 @@ public typealias NTControlNodeCallback = @convention(block) (NTControlNode) -> (
     public func removeAllActions() {
         self._controlNode?.removeTarget(nil, action: nil, forControlEvents: .allEvents)
     }
-}
 
 
 
-
-extension NTControlNode {
+    //MARK:-
+    //MARK:NTModule
     public override class func moduleName() -> String {
         return NTNodeConsts.Control.name
     }
@@ -242,6 +241,11 @@ extension NTControlNode {
         return constants
     }
 }
+
+
+
+
+
 
 
 

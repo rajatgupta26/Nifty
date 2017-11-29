@@ -38,6 +38,15 @@ import AsyncDisplayKit
     override public var specType: NTSpectype {
         return .wrapper
     }
+    
+    //MARK:-
+    //MARK:NTModule
+    public override static func moduleName() -> String {
+        return NTSpecConsts.Wrapper.name
+    }
+    public override static func constantsToExport() -> [String: Any]? {
+        return nil
+    }
 }
 
 
@@ -59,15 +68,6 @@ extension NTWrapperSpec: NTWrapperSpecProtocol {
 
 
 
-extension NTWrapperSpec {
-    
-    public override static func moduleName() -> String {
-        return NTSpecConsts.Wrapper.name
-    }
-    public override static func constantsToExport() -> [String: Any]? {
-        return nil
-    }
-}
 
 
 

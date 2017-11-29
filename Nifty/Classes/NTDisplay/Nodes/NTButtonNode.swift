@@ -116,10 +116,12 @@ import AsyncDisplayKit
     public func setImage(_ image: UIImage?, _ state: NTControlState){
         self._buttonNode?.setImage(image, for: UIControlState(rawValue: state))
     }
-}
-
-extension NTButtonNode {
     
+    
+    
+    
+    //MARK:-
+    //MARK:NTModule
     public override static func moduleName() -> String {
         return NTNodeConsts.Button.name
     }
@@ -128,3 +130,6 @@ extension NTButtonNode {
         return nil
     }
 }
+
+
+

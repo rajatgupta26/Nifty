@@ -207,10 +207,10 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
             self._textNode?.shadowOffset = newValue
         }
     }
-}
-
-extension NTTextNode {
     
+    
+    //MARK:-
+    //MARK:NTModule
     public override static func moduleName() -> String {
         return NTNodeConsts.Text.name
     }
@@ -219,3 +219,6 @@ extension NTTextNode {
         return nil
     }
 }
+
+
+

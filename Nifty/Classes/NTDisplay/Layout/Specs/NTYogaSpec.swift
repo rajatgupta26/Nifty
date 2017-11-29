@@ -32,6 +32,16 @@ import AsyncDisplayKit
     override public var specType: NTSpectype {
         return .yoga
     }
+    
+    
+    //MARK:-
+    //MARK:NTModule
+    public override static func moduleName() -> String {
+        return NTSpecConsts.Yoga.name
+    }
+    public override static func constantsToExport() -> [String: Any]? {
+        return nil
+    }
 }
 
 
@@ -49,15 +59,7 @@ extension NTYogaSpec: NTYogaSpecProtocol {
 
 
 
-extension NTYogaSpec {
-    
-    public override static func moduleName() -> String {
-        return NTSpecConsts.Yoga.name
-    }
-    public override static func constantsToExport() -> [String: Any]? {
-        return nil
-    }
-}
+
 
 
 

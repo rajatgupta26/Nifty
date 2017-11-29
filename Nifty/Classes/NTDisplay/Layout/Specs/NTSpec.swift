@@ -35,7 +35,7 @@ import AsyncDisplayKit
 
 
 
-@objc public class NTSpec: NSObject, NTSpecProtocol, NTLayoutElement {
+@objc public class NTSpec: NSObject, NTSpecProtocol, NTLayoutElement, NTModule {
 
     
     internal var _asSpec: ASLayoutSpec?
@@ -207,23 +207,17 @@ import AsyncDisplayKit
                             let spacing: CGFloat = ntStackSpec.spacing
                             let justifyContent = ntStackSpec.justifyContent
                             let alignItems = ntStackSpec.alignItems
-                            let flexWrap = ntStackSpec.flexWrap
-                            let alignContent = ntStackSpec.alignContent
                             let horizontalAlignment = ntStackSpec.horizontalAlignment
                             let verticalAlignment = ntStackSpec.verticalAlignment
-                            let isConcurrent = ntStackSpec.isConcurrent
 
                             let spec = ASStackLayoutSpec(direction: ASStackLayoutDirection(rawValue: direction) ?? .vertical,
                                                          spacing: spacing,
                                                          justifyContent: ASStackLayoutJustifyContent(rawValue: justifyContent) ?? .start,
                                                          alignItems: ASStackLayoutAlignItems(rawValue: alignItems) ?? .start,
-                                                         flexWrap: ASStackLayoutFlexWrap(rawValue: flexWrap) ?? .noWrap,
-                                                         alignContent: ASStackLayoutAlignContent(rawValue: alignContent) ?? .start,
                                                          children: asChildren)
                             
                             spec.horizontalAlignment = ASHorizontalAlignment(rawValue: horizontalAlignment) ?? .none
                             spec.verticalAlignment = ASVerticalAlignment(rawValue: verticalAlignment) ?? .none
-                            spec.isConcurrent = isConcurrent
                             
                             return spec
                         }
@@ -403,13 +397,10 @@ import AsyncDisplayKit
             self.asLayoutElement?.style.maxLayoutSize = ASLayoutSize(width: ASDimension(unit: .fraction, value: newValue.width), height: ASDimension(unit: .fraction, value: newValue.height))
         }
     }
-}
-
-
-
-
-extension NTSpec: NTModule {
     
+    
+    //MARK:-
+    //MARK:NTModule
     public class func moduleName() -> String {
         return "Spec"
     }
@@ -418,6 +409,11 @@ extension NTSpec: NTModule {
         return nil
     }
 }
+
+
+
+
+
 
 
 

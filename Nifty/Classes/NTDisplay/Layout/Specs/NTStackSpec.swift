@@ -31,7 +31,6 @@ public let NTStackAlignItemsCenter = ASStackLayoutAlignItems.center.rawValue
 public let NTStackAlignItemsStretch = ASStackLayoutAlignItems.stretch.rawValue
 public let NTStackAlignItemsBaselineFirst = ASStackLayoutAlignItems.baselineFirst.rawValue
 public let NTStackAlignItemsBaselineLast = ASStackLayoutAlignItems.baselineLast.rawValue
-public let NTStackAlignItemsNotset = ASStackLayoutAlignItems.notSet.rawValue
 
 
 public typealias NTStackAlignSelf = ASStackLayoutAlignSelf.RawValue
@@ -42,18 +41,18 @@ public let NTStackAlignSelfCenter = ASStackLayoutAlignSelf.center.rawValue
 public let NTStackAlignSelfStretch = ASStackLayoutAlignSelf.stretch.rawValue
 
 
-public typealias NTStackFlexWrap = ASStackLayoutFlexWrap.RawValue
-public let NTStackFlexWrapNoWrap = ASStackLayoutFlexWrap.noWrap.rawValue
-public let NTStackFlexWrapWrap = ASStackLayoutFlexWrap.wrap.rawValue
-
-
-public typealias NTStackAlignContent = ASStackLayoutAlignContent.RawValue
-public let NTStackAlignContentStart = ASStackLayoutAlignContent.start.rawValue
-public let NTStackAlignContentCenter = ASStackLayoutAlignContent.center.rawValue
-public let NTStackAlignContentEnd = ASStackLayoutAlignContent.end.rawValue
-public let NTStackAlignContentSpaceBetween = ASStackLayoutAlignContent.spaceBetween.rawValue
-public let NTStackAlignContentSpaceAround = ASStackLayoutAlignContent.spaceAround.rawValue
-public let NTStackAlignContentStretch = ASStackLayoutAlignContent.stretch.rawValue
+//public typealias NTStackFlexWrap = ASStackLayoutFlexWrap.RawValue
+//public let NTStackFlexWrapNoWrap = ASStackLayoutFlexWrap.noWrap.rawValue
+//public let NTStackFlexWrapWrap = ASStackLayoutFlexWrap.wrap.rawValue
+//
+//
+//public typealias NTStackAlignContent = ASStackLayoutAlignContent.RawValue
+//public let NTStackAlignContentStart = ASStackLayoutAlignContent.start.rawValue
+//public let NTStackAlignContentCenter = ASStackLayoutAlignContent.center.rawValue
+//public let NTStackAlignContentEnd = ASStackLayoutAlignContent.end.rawValue
+//public let NTStackAlignContentSpaceBetween = ASStackLayoutAlignContent.spaceBetween.rawValue
+//public let NTStackAlignContentSpaceAround = ASStackLayoutAlignContent.spaceAround.rawValue
+//public let NTStackAlignContentStretch = ASStackLayoutAlignContent.stretch.rawValue
 
 
 public typealias NTHorizontalAlignment = ASHorizontalAlignment.RawValue
@@ -73,8 +72,6 @@ public let NTVerticalAlignmentBottom = ASVerticalAlignment.bottom.rawValue
 fileprivate let defaultDirection: NTStackDirection = NTStackDirectionVertical
 fileprivate let defaultJustification: NTStackJustifyContent = NTStackJustifyContentStart
 fileprivate let defaultAlignItems: NTStackAlignItems = NTStackAlignItemsStart
-fileprivate let defaultFlexWrap: NTStackFlexWrap = NTStackFlexWrapNoWrap
-fileprivate let defaultAlignContent: NTStackAlignContent = NTStackAlignContentStart
 fileprivate let defaultSpacing: CGFloat = 0.0
 fileprivate let defaultHAlignment: NTHorizontalAlignment = NTHorizontalAlignmentNone
 fileprivate let defaultVAlignment: NTVerticalAlignment = NTVerticalAlignmentNone
@@ -91,9 +88,7 @@ fileprivate let defaultVAlignment: NTVerticalAlignment = NTVerticalAlignmentNone
     var verticalAlignment: NTVerticalAlignment {get set}
     var justifyContent: NTStackJustifyContent {get set}
     var alignItems: NTStackAlignItems {get set}
-    var flexWrap: NTStackFlexWrap {get set}
-    var alignContent: NTStackAlignContent {get set}
-    var isConcurrent: Bool {get set}
+//    var isConcurrent: Bool {get set}
     
     static func createWithOptionsAndChildren(_ options: [String: Any], _ children: [NTLayoutElement]) -> NTSpec
 }
@@ -109,25 +104,23 @@ fileprivate let defaultVAlignment: NTVerticalAlignment = NTVerticalAlignmentNone
     public var verticalAlignment: NTVerticalAlignment = defaultVAlignment
     public var justifyContent: NTStackJustifyContent = defaultJustification
     public var alignItems: NTStackAlignItems = defaultAlignItems
-    public var flexWrap: NTStackFlexWrap = defaultFlexWrap
-    public var alignContent: NTStackAlignContent = defaultAlignContent
-    public var isConcurrent: Bool = false
+//    public var flexWrap: NTStackFlexWrap = defaultFlexWrap
+//    public var alignContent: NTStackAlignContent = defaultAlignContent
+//    public var isConcurrent: Bool = false
     
     convenience init(direction: NTStackDirection = defaultDirection,
                      spacing: CGFloat = defaultSpacing,
                      justifyContent: NTStackJustifyContent = defaultJustification,
                      alignItems: NTStackAlignItems = defaultAlignItems,
-                     flexWrap: NTStackFlexWrap = defaultFlexWrap,
-                     alignContent: NTStackAlignContent = defaultAlignContent,
                      children: [NTLayoutElement]) {
         self.init()
         
         self.direction = direction
         self.spacing = spacing
         self.justifyContent = justifyContent
-        self.alignContent = alignContent
+//        self.alignContent = alignContent
         self.alignItems = alignItems
-        self.flexWrap = flexWrap
+//        self.flexWrap = flexWrap
         self.children = children
     }
     
@@ -136,37 +129,11 @@ fileprivate let defaultVAlignment: NTVerticalAlignment = NTVerticalAlignmentNone
             return .stack
         }
     }
-}
-
-
-
-
-extension NTStackSpec: NTStackSpecProtocol {
-    public static func createWithOptionsAndChildren(_ options: [String: Any], _ children: [NTLayoutElement]) -> NTSpec {
-        
-        let direction = options[NTSpecConsts.Stack.direction] as? NTStackDirection ?? defaultDirection
-        let spacing: CGFloat = (options[NTSpecConsts.Stack.spacing] as? CGFloat) ?? defaultSpacing
-        let justifyContent = options[NTSpecConsts.Stack.justifyContent]  as? NTStackJustifyContent ?? defaultJustification
-        let alignItems = options[NTSpecConsts.Stack.alignItems] as? NTStackAlignItems ?? defaultAlignItems
-        let flexWrap = options[NTSpecConsts.Stack.flexWrap] as? NTStackFlexWrap ?? defaultFlexWrap
-        let alignContent = options[NTSpecConsts.Stack.alignContent] as? NTStackAlignContent ?? defaultAlignContent
-        
-        return NTStackSpec(direction: direction,
-                           spacing: spacing,
-                           justifyContent: justifyContent,
-                           alignItems: alignItems,
-                           flexWrap: flexWrap,
-                           alignContent: alignContent,
-                           children: children)
-    }
-}
-
-
-
-
-
-extension NTStackSpec {
     
+    
+    
+    //MARK:- NTModule
+
     override public static func moduleName() -> String {
         return NTSpecConsts.Stack.name
     }
@@ -185,7 +152,6 @@ extension NTStackSpec {
                                                                         NTSpecConsts.Stack.AlignItems.baselineLast.rawValue: NTStackAlignItemsBaselineLast,
                                                                         NTSpecConsts.Stack.AlignItems.center.rawValue:NTStackAlignItemsCenter,
                                                                         NTSpecConsts.Stack.AlignItems.end.rawValue: NTStackAlignItemsEnd,
-                                                                        NTSpecConsts.Stack.AlignItems.notSet.rawValue: NTStackAlignItemsNotset,
                                                                         NTSpecConsts.Stack.AlignItems.start.rawValue: NTStackAlignItemsStart,
                                                                         NTSpecConsts.Stack.AlignItems.stretch.rawValue: NTStackAlignItemsStretch],
                                         
@@ -195,15 +161,6 @@ extension NTStackSpec {
                                                                        NTSpecConsts.Stack.AlignSelf.start.rawValue: NTStackAlignSelfStart,
                                                                        NTSpecConsts.Stack.AlignSelf.stretch.rawValue: NTStackAlignSelfStretch],
                                         
-                                        NTSpecConsts.Stack.flexWrap: [NTSpecConsts.Stack.FlexWrap.noWrap.rawValue: NTStackFlexWrapNoWrap,
-                                                                      NTSpecConsts.Stack.FlexWrap.wrap.rawValue: NTStackFlexWrapWrap],
-                                        
-                                        NTSpecConsts.Stack.alignContent: [NTSpecConsts.Stack.AlignContent.center.rawValue: NTStackAlignContentCenter,
-                                                                          NTSpecConsts.Stack.AlignContent.end.rawValue: NTStackAlignContentEnd,
-                                                                          NTSpecConsts.Stack.AlignContent.spaceAround.rawValue: NTStackAlignContentSpaceAround,
-                                                                          NTSpecConsts.Stack.AlignContent.spaceBetween.rawValue: NTStackAlignContentSpaceBetween,
-                                                                          NTSpecConsts.Stack.AlignContent.start.rawValue: NTStackAlignContentStart,
-                                                                          NTSpecConsts.Stack.AlignContent.stretch.rawValue: NTStackAlignContentStretch],
                                         
                                         NTSpecConsts.Stack.horizontalAlignment: [NTSpecConsts.Stack.HorizontalAlignment.left.rawValue: NTHorizontalAlignmentLeft,
                                                                                  NTSpecConsts.Stack.HorizontalAlignment.middle.rawValue: NTHorizontalAlignmentMiddle,
@@ -211,9 +168,9 @@ extension NTStackSpec {
                                                                                  NTSpecConsts.Stack.HorizontalAlignment.right.rawValue: NTHorizontalAlignmentRight],
                                         
                                         NTSpecConsts.Stack.verticalAlignment: [NTSpecConsts.Stack.VerticalAlignment.none.rawValue: NTVerticalAlignmentNone,
-                                                                                 NTSpecConsts.Stack.VerticalAlignment.top.rawValue: NTVerticalAlignmentTop,
-                                                                                 NTSpecConsts.Stack.VerticalAlignment.bottom.rawValue: NTVerticalAlignmentBottom,
-                                                                                 NTSpecConsts.Stack.VerticalAlignment.center.rawValue: NTVerticalAlignmentCenter],
+                                                                               NTSpecConsts.Stack.VerticalAlignment.top.rawValue: NTVerticalAlignmentTop,
+                                                                               NTSpecConsts.Stack.VerticalAlignment.bottom.rawValue: NTVerticalAlignmentBottom,
+                                                                               NTSpecConsts.Stack.VerticalAlignment.center.rawValue: NTVerticalAlignmentCenter],
                                         
                                         NTSpecConsts.Stack.options: ["direction": NTSpecConsts.Stack.direction,
                                                                      "justifyContent": NTSpecConsts.Stack.justifyContent,
@@ -222,11 +179,36 @@ extension NTStackSpec {
                                                                      "flexWrap": NTSpecConsts.Stack.flexWrap,
                                                                      "alignContent": NTSpecConsts.Stack.alignContent,
                                                                      "spacing": NTSpecConsts.Stack.spacing]
-                                        ]
+        ]
         
         return constants
     }
 }
+
+
+
+
+extension NTStackSpec: NTStackSpecProtocol {
+    public static func createWithOptionsAndChildren(_ options: [String: Any], _ children: [NTLayoutElement]) -> NTSpec {
+        
+        let direction = options[NTSpecConsts.Stack.direction] as? NTStackDirection ?? defaultDirection
+        let spacing: CGFloat = (options[NTSpecConsts.Stack.spacing] as? CGFloat) ?? defaultSpacing
+        let justifyContent = options[NTSpecConsts.Stack.justifyContent]  as? NTStackJustifyContent ?? defaultJustification
+        let alignItems = options[NTSpecConsts.Stack.alignItems] as? NTStackAlignItems ?? defaultAlignItems
+//        let flexWrap = options[NTSpecConsts.Stack.flexWrap] as? NTStackFlexWrap ?? defaultFlexWrap
+//        let alignContent = options[NTSpecConsts.Stack.alignContent] as? NTStackAlignContent ?? defaultAlignContent
+        
+        return NTStackSpec(direction: direction,
+                           spacing: spacing,
+                           justifyContent: justifyContent,
+                           alignItems: alignItems,
+                           children: children)
+    }
+}
+
+
+
+
 
 
 

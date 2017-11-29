@@ -39,6 +39,16 @@ import AsyncDisplayKit
             return .background
         }
     }
+    
+    
+    //MARK:-
+    //MARK:NTModule
+    public override static func moduleName() -> String {
+        return NTSpecConsts.Background.name
+    }
+    public override static func constantsToExport() -> [String: Any]? {
+        return nil
+    }
 }
 
 
@@ -53,15 +63,6 @@ extension NTBackgroundSpec: NTBackgroundSpecProtocol {
 
 
 
-extension NTBackgroundSpec {
-    
-    public override static func moduleName() -> String {
-        return NTSpecConsts.Background.name
-    }
-    public override static func constantsToExport() -> [String: Any]? {
-        return nil
-    }
-}
 
 
 

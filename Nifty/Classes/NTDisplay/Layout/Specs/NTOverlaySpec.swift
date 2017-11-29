@@ -40,6 +40,16 @@ import AsyncDisplayKit
             return .overlay
         }
     }
+    
+    
+    //MARK:-
+    //MARK:NTModule
+    public override static func moduleName() -> String {
+        return NTSpecConsts.Overlay.name
+    }
+    public override static func constantsToExport() -> [String: Any]? {
+        return nil
+    }
 }
 
 
@@ -54,15 +64,6 @@ extension NTOverlaySpec: NTOverlaySpecProtocol {
 
 
 
-extension NTOverlaySpec {
-    
-    public override static func moduleName() -> String {
-        return NTSpecConsts.Overlay.name
-    }
-    public override static func constantsToExport() -> [String: Any]? {
-        return nil
-    }
-}
 
 
 

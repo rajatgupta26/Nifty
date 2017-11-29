@@ -49,6 +49,17 @@ import AsyncDisplayKit
             return .ratio
         }
     }
+    
+    
+
+    //MARK:-
+    //MARK:NTModule
+    public override static func moduleName() -> String {
+        return NTSpecConsts.Ratio.name
+    }
+    public override static func constantsToExport() -> [String: Any]? {
+        return nil
+    }
 }
 
 
@@ -63,15 +74,7 @@ extension NTRatioSpec: NTRatioSpecProtocol {
 
 
 
-extension NTRatioSpec {
-    
-    public override static func moduleName() -> String {
-        return NTSpecConsts.Ratio.name
-    }
-    public override static func constantsToExport() -> [String: Any]? {
-        return nil
-    }
-}
+
 
 
 
