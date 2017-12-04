@@ -1842,6 +1842,7 @@
 				0AA88F93EA14EEB253080E5E0A1B4D11 /* NTColor+Utilities.m */,
 				6D2C0C84C7D38FF2A19391C5789602A9 /* NTConverter.swift */,
 				82AEF2729792DCBA7A93C5EDBC8E30D6 /* NTImage.swift */,
+				D61A20A61FD528DC0036FE8C /* NTTimer.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2999,6 +3000,7 @@
 				48BEF72B8A0D216855C79AC54B3F8289 /* NTImage.swift in Sources */,
 				08974E2E2F5FB241F3B341868EEFCED1 /* NTImageNode.swift in Sources */,
 				52235E805D70B92199856E6E00CE9938 /* NTInsetSpec.swift in Sources */,
+				D61A20A81FD5290C0036FE8C /* NTTimer.swift in Sources */,
 				70E0CEBC8061D32772F691CBC4DDC40E /* NTLayoutElement.swift in Sources */,
 				39882E15F3499F96746E1075BC2A2DC6 /* NTModuleRegistery.swift in Sources */,
 				AAE73E1849E29DA084D275139ED5A152 /* NTNode.swift in Sources */,
