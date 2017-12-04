@@ -100,6 +100,19 @@ Renderer.render = function() {
         textNode.maxSize = {width: ScreenBounds.width/3, height: 100}
         textNode.preferredSize = {width: ScreenBounds.width*0.3, height: 80}
         textNode.tag = 1234
+
+        var count = 0
+        let dispatcher = {}
+        dispatcher.timerHandler = function timerHandler() {
+            debugger
+            count = count + 1
+            textNode.text = count
+        }.bind(textNode, count)
+
+        let timer = Timer.create()
+        timer.nt_setDispatcher(dispatcher)
+        timer.setupTimerWithInterval(1.0, true)
+
         return textNode
     }
 
