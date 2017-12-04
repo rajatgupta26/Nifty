@@ -63,7 +63,8 @@ internal class NTModuleRegistery {
                                                     NTButtonNode.self,
                                                     
                                                     UIColor.self,
-                                                    UIImage.self]
+                                                    UIImage.self,
+                                                    NTTimer.self]
     
     //NTLOOK: Figure out all the default environtment variables related to mobie that should be exported here
     //Bundle and document/library directory read write, filemanager etc

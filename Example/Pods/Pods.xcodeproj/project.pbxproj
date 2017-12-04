@@ -452,6 +452,7 @@
 		D42A9B8A922C137279B0B1D780E29027 /* PINRemoteImageDownloadQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4DC618E208157215A128A6BA86ECB8 /* PINRemoteImageDownloadQueue.m */; };
 		D4D91CF78D0B33529ADE8405C9468C4F /* ASTextKitAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = E66D838811AA3405B6DC3EFAE7EF7511 /* ASTextKitAttributes.mm */; };
 		D50056AC89F63BC1A5E5DF03F70A5FE6 /* ASDispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C1F5F7180E85B41404D6936A1987B45 /* ASDispatch.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		D61A20A81FD5290C0036FE8C /* NTTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61A20A61FD528DC0036FE8C /* NTTimer.swift */; };
 		D668956CFC65E6E836C6CF2357DD453E /* _ASCollectionGalleryLayoutInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EF9FD9E70292935C9C9AE36B6101257 /* _ASCollectionGalleryLayoutInfo.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D70FA1D64145192AF7755F0020FBD2CE /* PINCacheObjectSubscripting.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6B2393DC87EAE7074AE7BDDF47EC27 /* PINCacheObjectSubscripting.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D73A0B00F849B46A7E9CEB1F0743EB4C /* ASRangeControllerUpdateRangeProtocol+Beta.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FC2492252C0804DF30499E1F63208F6 /* ASRangeControllerUpdateRangeProtocol+Beta.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1134,6 +1135,7 @@
 		D47FA9373C968064FBA8231DDF69D914 /* ASControlNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ASControlNode.h; path = Source/ASControlNode.h; sourceTree = "<group>"; };
 		D525A957863F6FE1DCCAB2969186EF1C /* ASTipsWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ASTipsWindow.h; path = Source/Private/ASTipsWindow.h; sourceTree = "<group>"; };
 		D5F99C8E151FBA284DAD0E6E68DED047 /* ASStackLayoutDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ASStackLayoutDefines.h; path = Source/Layout/ASStackLayoutDefines.h; sourceTree = "<group>"; };
+		D61A20A61FD528DC0036FE8C /* NTTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTTimer.swift; sourceTree = "<group>"; };
 		D699210A62FBE6FFEABD9C80D1ADB6CC /* ASSectionContext.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ASSectionContext.h; path = Source/Details/ASSectionContext.h; sourceTree = "<group>"; };
 		D6E0B965105B4A82CBDE7A7EAC3DFE70 /* ASNetworkImageNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ASNetworkImageNode.h; path = Source/ASNetworkImageNode.h; sourceTree = "<group>"; };
 		D7CA6DBC4063E3C9941BE1DEAD944776 /* Texture-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Texture-prefix.pch"; sourceTree = "<group>"; };
@@ -1839,6 +1841,7 @@
 				0AA88F93EA14EEB253080E5E0A1B4D11 /* NTColor+Utilities.m */,
 				6D2C0C84C7D38FF2A19391C5789602A9 /* NTConverter.swift */,
 				82AEF2729792DCBA7A93C5EDBC8E30D6 /* NTImage.swift */,
+				D61A20A61FD528DC0036FE8C /* NTTimer.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2995,6 +2998,7 @@
 				48BEF72B8A0D216855C79AC54B3F8289 /* NTImage.swift in Sources */,
 				08974E2E2F5FB241F3B341868EEFCED1 /* NTImageNode.swift in Sources */,
 				52235E805D70B92199856E6E00CE9938 /* NTInsetSpec.swift in Sources */,
+				D61A20A81FD5290C0036FE8C /* NTTimer.swift in Sources */,
 				70E0CEBC8061D32772F691CBC4DDC40E /* NTLayoutElement.swift in Sources */,
 				39882E15F3499F96746E1075BC2A2DC6 /* NTModuleRegistery.swift in Sources */,
 				AAE73E1849E29DA084D275139ED5A152 /* NTNode.swift in Sources */,
