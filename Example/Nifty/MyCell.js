@@ -44,10 +44,17 @@ Renderer.render = function() {
 
     function imageTest() {
         const devopsImage = imageWithName("dev-ops")
-        const genieImage = imageWithName("genie")
+        const genieImage = imageWithUrl("https://vignette4.wikia.nocookie.net/poohadventures/images/8/8c/Genie.png")
         genieImage.preferredSize = {width: ScreenBounds.width*0.225, height:90}
         const images = [devopsImage, genieImage]
         return images
+    }
+
+    function imageWithUrl(url) {
+        const networkImageNode = NetworkImageNode.create()
+        networkImageNode.url = url
+        
+        return networkImageNode
     }
 
     function imageWithName(name) {
