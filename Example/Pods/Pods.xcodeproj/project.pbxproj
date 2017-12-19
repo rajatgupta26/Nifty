@@ -452,6 +452,7 @@
 		D42A9B8A922C137279B0B1D780E29027 /* PINRemoteImageDownloadQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4DC618E208157215A128A6BA86ECB8 /* PINRemoteImageDownloadQueue.m */; };
 		D4D91CF78D0B33529ADE8405C9468C4F /* ASTextKitAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = E66D838811AA3405B6DC3EFAE7EF7511 /* ASTextKitAttributes.mm */; };
 		D50056AC89F63BC1A5E5DF03F70A5FE6 /* ASDispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C1F5F7180E85B41404D6936A1987B45 /* ASDispatch.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		D64D6BE11FC71A2C00EB94EC /* NTNetworkImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64D6BDF1FC719C600EB94EC /* NTNetworkImageNode.swift */; };
 		D668956CFC65E6E836C6CF2357DD453E /* _ASCollectionGalleryLayoutInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EF9FD9E70292935C9C9AE36B6101257 /* _ASCollectionGalleryLayoutInfo.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D70FA1D64145192AF7755F0020FBD2CE /* PINCacheObjectSubscripting.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6B2393DC87EAE7074AE7BDDF47EC27 /* PINCacheObjectSubscripting.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D73A0B00F849B46A7E9CEB1F0743EB4C /* ASRangeControllerUpdateRangeProtocol+Beta.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FC2492252C0804DF30499E1F63208F6 /* ASRangeControllerUpdateRangeProtocol+Beta.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1134,6 +1135,7 @@
 		D47FA9373C968064FBA8231DDF69D914 /* ASControlNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ASControlNode.h; path = Source/ASControlNode.h; sourceTree = "<group>"; };
 		D525A957863F6FE1DCCAB2969186EF1C /* ASTipsWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ASTipsWindow.h; path = Source/Private/ASTipsWindow.h; sourceTree = "<group>"; };
 		D5F99C8E151FBA284DAD0E6E68DED047 /* ASStackLayoutDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ASStackLayoutDefines.h; path = Source/Layout/ASStackLayoutDefines.h; sourceTree = "<group>"; };
+		D64D6BDF1FC719C600EB94EC /* NTNetworkImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTNetworkImageNode.swift; sourceTree = "<group>"; };
 		D699210A62FBE6FFEABD9C80D1ADB6CC /* ASSectionContext.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ASSectionContext.h; path = Source/Details/ASSectionContext.h; sourceTree = "<group>"; };
 		D6E0B965105B4A82CBDE7A7EAC3DFE70 /* ASNetworkImageNode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ASNetworkImageNode.h; path = Source/ASNetworkImageNode.h; sourceTree = "<group>"; };
 		D7CA6DBC4063E3C9941BE1DEAD944776 /* Texture-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Texture-prefix.pch"; sourceTree = "<group>"; };
@@ -1335,6 +1337,7 @@
 				EAA08ED4D909DEC2F08CEB51DBC556CE /* NTControlNode.swift */,
 				192DE5FFCF493E2A728CE37F275F9776 /* NTDisplayNode.swift */,
 				936B64FB730BEFF197D8F2DEA1B4DB2C /* NTImageNode.swift */,
+				D64D6BDF1FC719C600EB94EC /* NTNetworkImageNode.swift */,
 				D12D2029E9BFF8507B022E2BED9CB198 /* NTNode.swift */,
 				1420720ABEBC1F4716CF2E8A5D7CF21B /* NTTextNode.swift */,
 			);
@@ -2978,6 +2981,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D64D6BE11FC71A2C00EB94EC /* NTNetworkImageNode.swift in Sources */,
 				DAA4EE663786ED1D5DD1FB37967047A3 /* Nifty-dummy.m in Sources */,
 				B8E6EAEDCEDE1EF68A364BBEEE99F4F0 /* Nifty.swift in Sources */,
 				063812773C0DC2474B9B7054DFFFCAAF /* NTAbsoluteSpec.swift in Sources */,

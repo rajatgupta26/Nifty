@@ -59,6 +59,7 @@ internal class NTModuleRegistery {
                                                     
                                                     NTControlNode.self,
                                                     NTImageNode.self,
+                                                    NTNetworkImageNode.self,
                                                     NTTextNode.self,
                                                     NTButtonNode.self,
                                                     
