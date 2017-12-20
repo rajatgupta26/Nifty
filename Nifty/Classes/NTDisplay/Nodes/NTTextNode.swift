@@ -158,7 +158,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var shadowColor: UIColor? {
+    override public var shadowColor: UIColor? {
         get {
             if let color = self._textNode?.shadowColor {
                 return UIColor(cgColor: color)
@@ -179,7 +179,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var shadowOpacity: Double // default=0.0
+    override public var shadowOpacity: Double // default=0.0
         {
         get {
             return Double(self._textNode?.shadowOpacity ?? 0.0)
@@ -189,7 +189,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var shadowRadius: Double // default=0.0
+    override public var shadowRadius: Double // default=0.0
     {
         get {
             return Double(self._textNode?.shadowRadius ?? 0.0)
@@ -199,7 +199,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var shadowOffset: CGSize {
+    override public var shadowOffset: CGSize {
         get {
             return self._textNode?.shadowOffset ?? CGSize.zero
         }
