@@ -63,6 +63,11 @@ import JavaScriptCore
     
     var preferredSize: CGSize {get set}
     var relativePreferredSize: CGSize {get set}
+    
+    var spacingBefore: Double {get set}
+    var spacingAfter: Double {get set}
+    var flexGrow: Double {get set}
+    var flexShrink: Double {get set}
 }
 
 

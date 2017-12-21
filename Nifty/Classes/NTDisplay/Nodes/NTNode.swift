@@ -1429,6 +1429,42 @@ extension NTNode: NTLayoutElement {
             self.asLayoutElement?.style.maxLayoutSize = ASLayoutSize(width: ASDimension(unit: .fraction, value: newValue.width), height: ASDimension(unit: .fraction, value: newValue.height))
         }
     }
+    
+    public var spacingBefore: Double {
+        get {
+            return (self.asLayoutElement != nil) ? Double(self.asLayoutElement!.style.flexGrow) : 0.0
+        }
+        set {
+            self.asLayoutElement!.style.flexGrow = CGFloat(newValue)
+        }
+    }
+    
+    public var spacingAfter: Double {
+        get {
+            return (self.asLayoutElement != nil) ? Double(self.asLayoutElement!.style.flexGrow) : 0.0
+        }
+        set {
+            self.asLayoutElement!.style.flexGrow = CGFloat(newValue)
+        }
+    }
+    
+    public var flexGrow: Double {
+        get {
+            return (self.asLayoutElement != nil) ? Double(self.asLayoutElement!.style.flexGrow) : 0.0
+        }
+        set {
+            self.asLayoutElement!.style.flexGrow = CGFloat(newValue)
+        }
+    }
+    
+    public var flexShrink: Double {
+        get {
+            return (self.asLayoutElement != nil) ? Double(self.asLayoutElement!.style.flexGrow) : 0.0
+        }
+        set {
+            self.asLayoutElement!.style.flexGrow = CGFloat(newValue)
+        }
+    }
 
 }
 
