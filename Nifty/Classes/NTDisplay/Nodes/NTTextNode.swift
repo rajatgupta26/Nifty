@@ -83,8 +83,24 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         return ASTextNode()
     }
     
-    public func setTextWithFontSizeAndColor(_ text: String, _ fontSize: Double, _ color: UIColor) {
-        self._textNode?.attributedText = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName : color, NSFontAttributeName : UIFont.systemFont(ofSize: CGFloat(fontSize))])
+    public func setTextWithFontSizeAndColorAndAlignment(_ text: String, _ fontSize: Double, _ color: UIColor, _ alignment: String) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        switch alignment {
+        case "left":
+            paragraphStyle.alignment = .left
+        case "center":
+            paragraphStyle.alignment = .center
+        case "right":
+            paragraphStyle.alignment = .right
+        case "justified":
+            paragraphStyle.alignment = .justified
+        case "natural":
+            paragraphStyle.alignment = .natural
+        default:
+            paragraphStyle.alignment = .left
+        }
+        
+        self._textNode?.attributedText = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName : color, NSFontAttributeName : UIFont.systemFont(ofSize: CGFloat(fontSize)), NSParagraphStyleAttributeName: paragraphStyle])
     }
     
     public var text: String? {
