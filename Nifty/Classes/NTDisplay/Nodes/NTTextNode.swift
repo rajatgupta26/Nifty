@@ -69,7 +69,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
     var shadowRadius: Double {get set}
     var shadowOffset: CGSize {get set}
     
-    func setTextWithFontSizeAndColor(_ text: String, _ fontSize: Double, _ color: UIColor)
+    func setTextWithFontSizeAndColorAndAlignment(_ text: String, _ fontSize: Double, _ color: UIColor, _ alignment: String)
 }
 
 @objc public class NTTextNode: NTControlNode, NTTextNodeExports {
