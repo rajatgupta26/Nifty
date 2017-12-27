@@ -42,10 +42,6 @@
  
  open func tintColorDidChange() // Notifies the node when the tintColor has changed.
  
- open var borderWidth: Double // default=0
- 
- unowned(unsafe) open var borderColor: CGColor? // default=opaque rgb black
- 
  open func canBecomeFirstResponder() -> Bool // default==NO
  
  open func becomeFirstResponder() -> Bool // default==NO (no-op)
@@ -203,6 +199,10 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
     var shadowOpacity: Double { get set } // default=0.0
     var shadowOffset: CGSize { get set } // default=(0, -3)
     var shadowRadius: Double { get set } // default=3
+    
+    // Border
+    var borderWidth: Double {get set} // default=0
+    var borderColor: UIColor? {get set} // default=opaque rgb black
     
     //Layout
     
@@ -1223,7 +1223,7 @@ extension NTNode {
         }
     }
     
-    public var shadowOffset: CGSize {
+    open var shadowOffset: CGSize {
         get {
             return self._asNode?.shadowOffset ?? CGSize.zero
         }
@@ -1239,6 +1239,24 @@ extension NTNode {
         }
         set {
             self._asNode?.shadowRadius = CGFloat(newValue)
+        }
+    }
+    
+    open var borderWidth: Double {
+        get {
+            return Double(self._asNode?.borderWidth ?? 0.0)
+        }
+        set {
+            self._asNode?.borderWidth = CGFloat(newValue)
+        }
+    }
+    
+    open var borderColor: UIColor? {
+        get {
+            return UIColor(cgColor: self._asNode?.borderColor ?? UIColor.black.cgColor)
+        }
+        set {
+            self._asNode?.borderColor = newValue?.cgColor
         }
     }
 }
