@@ -8,6 +8,8 @@
 import Foundation
 import JavaScriptCore
 import AsyncDisplayKit
+import NSAttributedString_DDHTML
+
 /*
  var attributedText: String? {get set}
  var truncationAttributedText: String? {get set}
@@ -69,7 +71,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
     var shadowRadius: Double {get set}
     var shadowOffset: CGSize {get set}
     
-    func setTextWithFontSizeAndColorAndAlignment(_ text: String, _ fontSize: Double, _ color: UIColor, _ alignment: String)
+    func setAttributedTextWithHTML(_ html: String)
 }
 
 @objc public class NTTextNode: NTControlNode, NTTextNodeExports {
@@ -83,24 +85,9 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         return ASTextNode()
     }
     
-    public func setTextWithFontSizeAndColorAndAlignment(_ text: String, _ fontSize: Double, _ color: UIColor, _ alignment: String) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        switch alignment {
-        case "left":
-            paragraphStyle.alignment = .left
-        case "center":
-            paragraphStyle.alignment = .center
-        case "right":
-            paragraphStyle.alignment = .right
-        case "justified":
-            paragraphStyle.alignment = .justified
-        case "natural":
-            paragraphStyle.alignment = .natural
-        default:
-            paragraphStyle.alignment = .left
-        }
-        
-        self._textNode?.attributedText = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName : color, NSFontAttributeName : UIFont.systemFont(ofSize: CGFloat(fontSize)), NSParagraphStyleAttributeName: paragraphStyle])
+    public func setAttributedTextWithHTML(_ html: String) {
+        let attrStr = NSAttributedString(fromHTML: html)
+        self._textNode?.attributedText = attrStr
     }
     
     public var text: String? {
