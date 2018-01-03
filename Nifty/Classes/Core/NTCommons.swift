@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import CwlUtils
-
 
 public extension PThreadMutex {
     func fastSync<R>(execute work: () throws -> R) rethrows -> R {

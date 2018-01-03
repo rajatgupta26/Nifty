@@ -39,6 +39,6 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'JavaScriptCore'
   s.dependency 'Texture'
-  s.dependency 'CwlUtils'
+  # s.dependency 'CwlUtils'
   s.dependency 'NSAttributedString-DDHTML'
 end

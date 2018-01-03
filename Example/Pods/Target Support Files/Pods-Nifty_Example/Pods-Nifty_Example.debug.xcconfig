@@ -1,10 +1,11 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/CwlUtils" "$PODS_CONFIGURATION_BUILD_DIR/Nifty" "$PODS_CONFIGURATION_BUILD_DIR/PINCache" "$PODS_CONFIGURATION_BUILD_DIR/PINOperation" "$PODS_CONFIGURATION_BUILD_DIR/PINRemoteImage" "$PODS_CONFIGURATION_BUILD_DIR/Texture"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/NSAttributedString-DDHTML" "$PODS_CONFIGURATION_BUILD_DIR/Nifty" "$PODS_CONFIGURATION_BUILD_DIR/PINCache" "$PODS_CONFIGURATION_BUILD_DIR/PINOperation" "$PODS_CONFIGURATION_BUILD_DIR/PINRemoteImage" "$PODS_CONFIGURATION_BUILD_DIR/Texture"
 GCC_PRECOMPILE_PREFIX_HEADER = YES
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(SDKROOT)/usr/include/libxml2
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/CwlUtils/CwlUtils.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Nifty/Nifty.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/PINCache/PINCache.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/PINOperation/PINOperation.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/PINRemoteImage/PINRemoteImage.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Texture/AsyncDisplayKit.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "AsyncDisplayKit" -framework "CwlUtils" -framework "Nifty" -framework "PINCache" -framework "PINOperation" -framework "PINRemoteImage"
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/NSAttributedString-DDHTML/NSAttributedString_DDHTML.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Nifty/Nifty.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/PINCache/PINCache.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/PINOperation/PINOperation.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/PINRemoteImage/PINRemoteImage.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Texture/AsyncDisplayKit.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "AsyncDisplayKit" -framework "NSAttributedString_DDHTML" -framework "Nifty" -framework "PINCache" -framework "PINOperation" -framework "PINRemoteImage"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

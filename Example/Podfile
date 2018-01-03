@@ -2,8 +2,7 @@ use_frameworks!
 
 target 'Nifty_Example' do
   pod 'Nifty', :path => '../'
-  pod 'CwlUtils', :git => 'https://github.com/mattgallagher/CwlUtils.git'
-  
+
 #  target 'Nifty_Tests' do
 #    inherit! :search_paths
 #

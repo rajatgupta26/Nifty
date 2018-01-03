@@ -8,7 +8,6 @@
 
 import Foundation
 import JavaScriptCore
-import CwlUtils
 
 
 public protocol NTExecutorDelegate {
