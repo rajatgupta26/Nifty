@@ -42,19 +42,6 @@
  
  open func tintColorDidChange() // Notifies the node when the tintColor has changed.
  
- 
- unowned(unsafe) open var shadowColor: CGColor? // default=opaque rgb black
- 
- open var shadowOpacity: Double // default=0.0
- 
- open var shadowOffset: CGSize // default=(0, -3)
- 
- open var shadowRadius: Double // default=3
- 
- open var borderWidth: Double // default=0
- 
- unowned(unsafe) open var borderColor: CGColor? // default=opaque rgb black
- 
  open func canBecomeFirstResponder() -> Bool // default==NO
  
  open func becomeFirstResponder() -> Bool // default==NO (no-op)
@@ -207,6 +194,15 @@ public typealias NTNodeDidLoadBlock = (NTNode) -> ()
     var contentMode: Int { get set }// default=UIViewContentModeScaleToFill
     
     
+    // Shadow
+    var shadowColor: UIColor? { get set } // default=opaque rgb black
+    var shadowOpacity: Double { get set } // default=0.0
+    var shadowOffset: CGSize { get set } // default=(0, -3)
+    var shadowRadius: Double { get set } // default=3
+    
+    // Border
+    var borderWidth: Double {get set} // default=0
+    var borderColor: UIColor? {get set} // default=opaque rgb black
     
     //Layout
     
@@ -1203,6 +1199,65 @@ extension NTNode {
     
     public func displayNodeRecursiveDescription() -> String {
         return self._asNode.displayNodeRecursiveDescription()
+    }
+    
+    open var shadowColor: UIColor? {
+        get {
+            if let color = self._asNode?.shadowColor {
+                return UIColor(cgColor: color)
+            }
+            return nil
+        }
+        set {
+            self._asNode?.shadowColor = newValue?.cgColor
+        }
+    }
+    
+    open var shadowOpacity: Double // default=0.0
+    {
+        get {
+            return Double(self._asNode?.shadowOpacity ?? 0.0)
+        }
+        set {
+            self._asNode?.shadowOpacity = CGFloat(newValue)
+        }
+    }
+    
+    open var shadowOffset: CGSize {
+        get {
+            return self._asNode?.shadowOffset ?? CGSize.zero
+        }
+        set {
+            self._asNode?.shadowOffset = newValue
+        }
+    }
+    
+    open var shadowRadius: Double // default=0.0
+    {
+        get {
+            return Double(self._asNode?.shadowRadius ?? 0.0)
+        }
+        set {
+            self._asNode?.shadowRadius = CGFloat(newValue)
+        }
+    }
+    
+    open var borderWidth: Double {
+        get {
+            return Double(self._asNode?.borderWidth ?? 0.0)
+        }
+        set {
+            self._asNode?.borderWidth = CGFloat(newValue)
+        }
+    }
+    
+    open var borderColor: UIColor? {
+        get {
+            return UIColor(cgColor: self._asNode?.borderColor ?? UIColor.black.cgColor)
+        }
+        set {
+            self._asNode?.borderColor = newValue?.cgColor
+        }
     }
 }
 

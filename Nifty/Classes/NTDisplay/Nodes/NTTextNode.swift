@@ -8,6 +8,8 @@
 import Foundation
 import JavaScriptCore
 import AsyncDisplayKit
+import NSAttributedString_DDHTML
+
 /*
  var attributedText: String? {get set}
  var truncationAttributedText: String? {get set}
@@ -69,6 +71,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
     var shadowRadius: Double {get set}
     var shadowOffset: CGSize {get set}
     
+    func setAttributedTextWithHTML(_ html: String)
 }
 
 @objc public class NTTextNode: NTControlNode, NTTextNodeExports {
@@ -80,6 +83,11 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
     
     public override func loadNode() -> ASDisplayNode {
         return ASTextNode()
+    }
+    
+    public func setAttributedTextWithHTML(_ html: String) {
+        let attrStr = NSAttributedString(fromHTML: html)
+        self._textNode?.attributedText = attrStr
     }
     
     public var text: String? {
@@ -158,7 +166,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var shadowColor: UIColor? {
+    override public var shadowColor: UIColor? {
         get {
             if let color = self._textNode?.shadowColor {
                 return UIColor(cgColor: color)
@@ -179,7 +187,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var shadowOpacity: Double // default=0.0
+    override public var shadowOpacity: Double // default=0.0
         {
         get {
             return Double(self._textNode?.shadowOpacity ?? 0.0)
@@ -189,7 +197,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var shadowRadius: Double // default=0.0
+    override public var shadowRadius: Double // default=0.0
     {
         get {
             return Double(self._textNode?.shadowRadius ?? 0.0)
@@ -199,7 +207,7 @@ public let kNTLineBreakModeByTruncatingMiddle = NSLineBreakMode.byTruncatingMidd
         }
     }
     
-    public var shadowOffset: CGSize {
+    override public var shadowOffset: CGSize {
         get {
             return self._textNode?.shadowOffset ?? CGSize.zero
         }
